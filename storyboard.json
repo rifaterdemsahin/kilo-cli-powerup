@@ -80,14 +80,14 @@
         658,
         1376
       ],
-      "start": 3.9,
+      "start": 4.9,
       "end": 8.9,
       "x": 190,
       "y": 260,
       "width": 700,
       "targets": [
         {
-          "at": 4.4,
+          "at": 5.3,
           "label": "DeepSeek $0.00",
           "arrowX": 940,
           "arrowY": 1036,
@@ -140,7 +140,7 @@
     "teaser": "5 ingredients.|1 cheap model.",
     "text": "How can you make DeepSeek work as good as a frontier CLI?",
     "start": 1.0,
-    "end": 3.8,
+    "end": 4.8,
     "highlight": [
       "DeepSeek",
       "frontier"

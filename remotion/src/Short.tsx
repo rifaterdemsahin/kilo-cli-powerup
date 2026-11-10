@@ -315,12 +315,20 @@ const Formula: React.FC = () => {
 };
 
 // ---------- progress bar ----------
+// Bold bottom bar: dark track, glowing gradient fill, round head. Height/offset in px: BAR_H, BAR_BOTTOM.
+const BAR_H = 26;
+const BAR_BOTTOM = 0;
 const Progress: React.FC = () => {
   const frame = useCurrentFrame();
   const {durationInFrames} = useVideoConfig();
+  const pct = Math.min(1, frame / (durationInFrames - 1)) * 100;
   return (
-    <div style={{position: 'absolute', left: 0, bottom: 0, height: 14, width: `${(frame / durationInFrames) * 100}%`,
-      background: `linear-gradient(90deg, ${CYAN}, ${VIOLET})`}} />
+    <div style={{position: 'absolute', left: 0, right: 0, bottom: BAR_BOTTOM, height: BAR_H, background: 'rgba(255,255,255,0.22)'}}>
+      <div style={{height: '100%', width: `${pct}%`, background: `linear-gradient(90deg, ${CYAN}, ${VIOLET})`,
+        boxShadow: `0 0 22px ${CYAN}`}} />
+      <div style={{position: 'absolute', top: -7, left: `calc(${pct}% - 20px)`, width: 40, height: 40, borderRadius: 20,
+        background: '#fff', boxShadow: `0 0 20px ${CYAN}, 0 0 0 5px ${VIOLET}`}} />
+    </div>
   );
 };
 

@@ -99,6 +99,14 @@ Every non-obvious choice made while building this Short, and why.
 | Teaser and question are separate pieces (`hook.teaser` with `|` line breaks, `hook.text`) | Teaser optional in the template; the question card works alone. |
 | Everything voice-timed shifted by +0.1 s (callouts, JEV sketch, formula); banner stays at 0:21 as the user asked | The trim moves the first word from 1.18 s to 3.2 s, and "I'm" from 3.1 to 3.2. |
 
+## More time on the question + bolder progress bar
+| Decision | Why |
+|---|---|
+| Hook (teaser + question) now holds until 4.8 s (was 3.8 s): the question is fully typed by ~2.7 s, so it is readable for ~2 s | User: "a bit more wait so the audience gets the question". |
+| Did it by overlapping the hold with the first spoken words and moving callout 1 from 3.9 s to 4.9 s, not by adding silence | Adding 1 s more silence would have made the Short 30.6 s (limit 30). Total length unchanged at 29.6 s. The DeepSeek / $0.00 proof arrow moves to 5.3 s. |
+| Progress bar: 26 px track (white 22%), glowing cyan->violet fill, round white head with violet ring (was a 14 px sliver) | User asked for a bottom progress bar; the old one was too thin to notice. Constants `BAR_H` / `BAR_BOTTOM` in `Short.tsx`. |
+| Bar sits at the very bottom | Shorts draws its own thin bar there too; if it clashes in the app, raise `BAR_BOTTOM` (e.g. 120) so it clears the player controls. Not tested in the app. |
+
 ## Secrets
 | Decision | Why |
 |---|---|

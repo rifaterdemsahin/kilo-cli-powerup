@@ -18,7 +18,7 @@ build/  s1..s5.png, s2.mp4, s5.mp4, sN_sfx.wav, music.wav
    v
 remotion/  (npm run studio | npm run render)   animated word-by-word subtitles
    v
-build/short.mp4   (1080x1920, 27 s)
+build/short.mp4   (1080x1920, 29.5 s)
 ```
 
 1. **Pick the recording**: latest = highest `ZOOM` number (not newest date; the H2N clock resets on battery change).
@@ -26,8 +26,9 @@ build/short.mp4   (1080x1920, 27 s)
 3. **Storyboard**: `storyboard.json` drives everything: shot timings, image prompts, which shots animate, SFX, music.
 4. **Generate** with fal.ai (cheap model, 2 animated shots, rest Ken Burns). Cached, so re-runs are free.
 5. **Callouts** (`callouts` in `storyboard.json`): your screenshots (`assets/images/`) with an animated arrow: the status screen -> LSP (4.8-8.8 s), `indexing.jpg` -> the indexing icon (8.8-10.8 s). A pencil-sketch **JEV** diagram, drawn in Remotion (`JevSketch.tsx`), plays at 12.4-17.9 s.
-6. **Render** with Remotion. Subtitles are word-level: phrases spring in, the active word pops cyan, keywords are violet.
-7. **Review** in `npm run studio`, then publish `build/short.mp4`.
+6. **Hook + formula**: a question card opens the Short (`hook`) and the formula closes it (`formula`), both in `storyboard.json`. Total length 29.5 s.
+7. **Render** with Remotion. Subtitles are word-level: phrases spring in, the active word pops cyan, keywords are violet.
+8. **Review** in `npm run studio`, then publish `build/short.mp4`.
 
 Quick run:
 

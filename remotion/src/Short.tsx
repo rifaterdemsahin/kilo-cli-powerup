@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  AbsoluteFill, Audio, Img, OffthreadVideo, Sequence, interpolate, random,
+  AbsoluteFill, Audio, Freeze, Img, OffthreadVideo, Sequence, interpolate, random,
   spring, staticFile, useCurrentFrame, useVideoConfig,
 } from 'remotion';
 import data from '../public/data.json';
@@ -49,7 +49,9 @@ const ShotLayer: React.FC<{shot: Shot}> = ({shot}) => {
     <AbsoluteFill style={{opacity: fade}}>
       <AbsoluteFill style={{transform: `scale(${scale})`}}>
         {shot.video ? (
-          <OffthreadVideo src={staticFile(shot.video)} muted style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+          <Freeze frame={Math.min(frame, Math.max(0, Math.floor(((shot as {videoSeconds?: number}).videoSeconds ?? 99) * fps) - 3))}>
+            <OffthreadVideo src={staticFile(shot.video)} muted style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+          </Freeze>
         ) : shot.image ? (
           <Img src={staticFile(shot.image)} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
         ) : (
@@ -183,6 +185,84 @@ const Callout: React.FC<{c: CalloutCfg}> = ({c}) => {
   );
 };
 
+// ---------- hook question at the start ----------
+// Typewriter question in a speech-bubble card; key words are coloured.
+const Hook: React.FC = () => {
+  const frame = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  const h = data.hook;
+  if (!h) return null;
+  const t = frame / fps;
+  if (t > h.end) return null;
+  const enter = spring({frame, fps, config: {damping: 12}});
+  const exit = interpolate(t, [h.end - 0.35, h.end], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const words = h.text.split(' ');
+  const perWord = 0.2;
+  return (
+    <div style={{
+      position: 'absolute', left: 70, right: 70, top: 330, padding: '46px 52px', borderRadius: 44,
+      background: 'rgba(8,12,28,0.82)', border: `5px solid ${VIOLET}`, boxShadow: `0 0 60px ${VIOLET}99`,
+      opacity: exit * Math.min(1, enter * 1.5), transform: `scale(${0.8 + 0.2 * enter}) rotate(${(1 - enter) * -4}deg)`,
+      fontFamily: 'Helvetica, Arial, sans-serif', fontWeight: 900, fontSize: 84, lineHeight: 1.15, textAlign: 'center',
+    }}>
+      {words.map((w, i) => {
+        const shown = t >= h.start + 0.3 + i * perWord;
+        const hl = h.highlight.some((k) => w.toLowerCase().startsWith(k.toLowerCase()));
+        const pop = shown ? spring({frame: frame - Math.round((h.start + 0.3 + i * perWord) * fps), fps, config: {damping: 10, stiffness: 200}}) : 0;
+        return (
+          <span key={i} style={{
+            display: 'inline-block', marginRight: 18, opacity: shown ? 1 : 0, transform: `scale(${0.6 + 0.4 * pop})`,
+            color: hl ? (w.toLowerCase().startsWith('deep') ? CYAN : VIOLET) : '#fff',
+            textShadow: hl ? `0 0 26px ${hl ? CYAN : VIOLET}` : 'none',
+          }}>{w}</span>
+        );
+      })}
+    </div>
+  );
+};
+
+// ---------- closing formula ----------
+const Formula: React.FC = () => {
+  const frame = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  const f = data.formula;
+  if (!f) return null;
+  const t = frame / fps;
+  if (t < f.start) return null;
+  const panel = spring({frame: frame - Math.round(f.start * fps), fps, config: {damping: 14}});
+  const pop = (at: number) => spring({frame: frame - Math.round(at * fps), fps, config: {damping: 10, stiffness: 170}});
+  const resP = pop(f.result.at);
+  const glow = 0.6 + 0.4 * Math.sin(t * 7);
+  return (
+    <div style={{
+      position: 'absolute', left: 90, right: 90, top: 300, padding: '44px 40px 52px', borderRadius: 48,
+      background: 'rgba(6,10,24,0.86)', border: `5px solid ${CYAN}`, boxShadow: `0 0 70px ${CYAN}88`,
+      opacity: panel, transform: `scale(${0.85 + 0.15 * panel})`, fontFamily: 'Helvetica, Arial, sans-serif',
+      textAlign: 'center',
+    }}>
+      {f.terms.map((term, i) => {
+        const p = pop(term.at);
+        return (
+          <div key={term.t} style={{
+            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 28, fontWeight: 900, fontSize: 92,
+            opacity: Math.min(1, p * 1.4), transform: `translateX(${(1 - p) * -120}px) scale(${0.7 + 0.3 * p})`,
+            color: i % 2 ? VIOLET : '#fff', lineHeight: 1.25,
+          }}>
+            <span style={{width: 60, color: CYAN}}>{i === 0 ? '' : '+'}</span>
+            <span style={{minWidth: 520, textAlign: 'left'}}>{term.t}</span>
+          </div>
+        );
+      })}
+      <div style={{height: 8, margin: '22px 40px', borderRadius: 4, background: CYAN, opacity: resP,
+        transform: `scaleX(${resP})`, boxShadow: `0 0 24px ${CYAN}`}} />
+      <div style={{
+        fontWeight: 900, fontSize: 88, color: '#facc15', opacity: Math.min(1, resP * 1.4),
+        transform: `scale(${0.6 + 0.4 * resP})`, textShadow: `0 0 ${40 * glow}px #facc15`,
+      }}>= {f.result.t}</div>
+    </div>
+  );
+};
+
 // ---------- progress bar ----------
 const Progress: React.FC = () => {
   const frame = useCurrentFrame();
@@ -206,10 +286,12 @@ export const Short: React.FC = () => {
       ))}
       <JevSketch />
       {data.callouts.map((c) => <Callout key={c.id} c={c} />)}
+      <Hook />
+      <Formula />
       <Subtitles />
       <Progress />
       {data.voice && <Audio src={staticFile(data.voice)} />}
-      {data.music && <Audio src={staticFile(data.music)} volume={0.15} loop />}
+      {data.music && <Audio src={staticFile(data.music)} loop volume={(f) => 0.15 * interpolate(f, [data.duration * fps - 45, data.duration * fps], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})} />}
     </AbsoluteFill>
   );
 };

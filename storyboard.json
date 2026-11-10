@@ -1,6 +1,6 @@
 {
   "title": "Kilo CLI power-up",
-  "duration": 27,
+  "duration": 29.5,
   "voiceover": "assets/audio/ZOOM0022.WAV",
   "style": "dark terminal aesthetic, neon cyan and violet glow, clean vector-like 3D, vertical 9:16, no text, no logos",
   "music": {
@@ -56,7 +56,7 @@
     {
       "id": "s5",
       "start": 23,
-      "end": 27,
+      "end": 29.5,
       "image": "a friendly glowing whale made of circuitry diving through a sea of data, frontier AI model concept",
       "caption_hint": "Frontier models with DeepSeek",
       "animate": true,
@@ -124,5 +124,44 @@
         }
       ]
     }
-  ]
+  ],
+  "hook": {
+    "text": "How can you make DeepSeek work as good as a frontier CLI?",
+    "start": 0.0,
+    "end": 4.5,
+    "highlight": [
+      "DeepSeek",
+      "frontier"
+    ]
+  },
+  "formula": {
+    "start": 24.4,
+    "end": 29.5,
+    "terms": [
+      {
+        "t": "Kilo CLI",
+        "at": 24.6
+      },
+      {
+        "t": "LSP",
+        "at": 25.0
+      },
+      {
+        "t": "Indexing",
+        "at": 25.4
+      },
+      {
+        "t": "JEV",
+        "at": 25.8
+      },
+      {
+        "t": "DeepSeek",
+        "at": 26.2
+      }
+    ],
+    "result": {
+      "t": "Frontier-level results",
+      "at": 27.0
+    }
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "duration": 27,
+  "duration": 29.5,
   "voice": "voice.wav",
   "music": "music.wav",
   "callouts": [
@@ -55,6 +55,45 @@
       ]
     }
   ],
+  "hook": {
+    "text": "How can you make DeepSeek work as good as a frontier CLI?",
+    "start": 0.0,
+    "end": 4.5,
+    "highlight": [
+      "DeepSeek",
+      "frontier"
+    ]
+  },
+  "formula": {
+    "start": 24.4,
+    "end": 29.5,
+    "terms": [
+      {
+        "t": "Kilo CLI",
+        "at": 24.6
+      },
+      {
+        "t": "LSP",
+        "at": 25.0
+      },
+      {
+        "t": "Indexing",
+        "at": 25.4
+      },
+      {
+        "t": "JEV",
+        "at": 25.8
+      },
+      {
+        "t": "DeepSeek",
+        "at": 26.2
+      }
+    ],
+    "result": {
+      "t": "Frontier-level results",
+      "at": 27.0
+    }
+  },
   "jev": {
     "reference": "assets/images/jev.webp",
     "start": 12.4,
@@ -376,6 +415,7 @@
       "label": "Using Kilo CLI",
       "image": "s1.png",
       "video": null,
+      "videoSeconds": null,
       "sfx": "s1_sfx.wav",
       "sfxAt": 0.2
     },
@@ -386,6 +426,7 @@
       "label": "Enable LSP + indexing",
       "image": "s2.png",
       "video": "s2.mp4",
+      "videoSeconds": 5.041667,
       "sfx": "s2_sfx.wav",
       "sfxAt": 5.0
     },
@@ -396,6 +437,7 @@
       "label": "The critical part",
       "image": "s3.png",
       "video": null,
+      "videoSeconds": null,
       "sfx": "s3_sfx.wav",
       "sfxAt": 10.0
     },
@@ -406,16 +448,18 @@
       "label": "Get the task done",
       "image": "s4.png",
       "video": null,
+      "videoSeconds": null,
       "sfx": "s4_sfx.wav",
       "sfxAt": 18.0
     },
     {
       "id": "s5",
       "start": 23,
-      "end": 27,
+      "end": 29.5,
       "label": "Frontier models with DeepSeek",
       "image": "s5.png",
       "video": "s5.mp4",
+      "videoSeconds": 5.041667,
       "sfx": "s5_sfx.wav",
       "sfxAt": 23.0
     }

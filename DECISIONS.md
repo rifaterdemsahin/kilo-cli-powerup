@@ -59,6 +59,15 @@ Every non-obvious choice made while building this Short, and why.
 | Check mark (blue = valid) and cross (red = error); handwritten blue "JEV" label with underline | Friendly, and readable without any text. |
 | Pencil wobble and paper grain via SVG filters, not an image | Resolution-independent, tiny, and no AI artefacts. |
 
+## Hook and formula
+| Decision | Why |
+|---|---|
+| Hook at 0-4.5 s: "How can you make DeepSeek work as good as a frontier CLI?" in a typewriter speech-bubble card (DeepSeek cyan, frontier violet) | The user asked to open with the question. It frames the whole Short as the answer. It sits over the first shot while the voiceover starts at 1.2 s; subtitles are at the bottom, so nothing collides. |
+| Formula at the end: Kilo CLI + LSP + Indexing + JEV + DeepSeek = Frontier-level results | The user asked to "show the formula". The terms are exactly the parts named in the narration ("critical parts to make Kilo CLI work in terms of frontier models by using DeepSeek"), each popping in as it is spoken (24.6-26.2 s), with the result in yellow at 27.0 s. "Frontier-level results" is the user's claim, not something measured. |
+| Duration extended 27 s -> 29.5 s | The voiceover ends at ~26.3 s and the formula needs ~2.5 s on screen to be read. 29.5 s keeps the "no more than 30 s" limit. |
+| Last shot's clip is 5 s but the shot is now 6.5 s: last video frame is frozen, not looped | A loop would visibly jump; a freeze under a dark panel is invisible. |
+| Music fades out over the final 1.5 s and loops under the extra time | The 27 s music bed is shorter than 29.5 s. |
+
 ## Secrets
 | Decision | Why |
 |---|---|

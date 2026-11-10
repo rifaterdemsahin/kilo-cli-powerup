@@ -4,6 +4,8 @@ Pipeline that turns a voice recording about **Kilo CLI** into a YouTube Short (9
 local Whisper transcription, cheap fal.ai visuals/animation/music/SFX, Remotion rendering with animated subtitles.
 See [DECISIONS.md](DECISIONS.md) for every choice and why.
 
+**Live page:** [Scoring explained](https://rifaterdemsahin.github.io/kilo-cli-powerup/scoring.html): an English translation of a voice note on adding sound only at key moments, plus how it applies to this Short. Hosted with GitHub Pages (below).
+
 ## Flow
 
 ```
@@ -49,6 +51,17 @@ scripts/new_project.sh ~/projects/my-next-short "My Next Short"
 
 Copies the engine (`scripts/`, `remotion/`), a blank `storyboard.json`, and README / SANITY_CHECK / DECISIONS templates from `template/`.
 Recipe and pitfalls: [docs/PLAYBOOK.md](docs/PLAYBOOK.md). How this one was made, step by step: [docs/BUILD_LOG.md](docs/BUILD_LOG.md).
+
+## GitHub Pages
+
+The site is served from the `docs/` folder on `main` (Settings -> Pages -> Deploy from a branch -> `main` / `/docs`; `docs/.nojekyll` makes it serve files as-is).
+
+| Page | Source | URL |
+|---|---|---|
+| Scoring explained | `docs/scoring.html` | https://rifaterdemsahin.github.io/kilo-cli-powerup/scoring.html |
+| Site root (redirects to the page above) | `docs/index.html` | https://rifaterdemsahin.github.io/kilo-cli-powerup/ |
+
+Only `docs/` is published as a website; the rest of the repo is not served. To add a page, put an `.html` file in `docs/`, push to `main`, and it deploys in about a minute. The `.md` files in `docs/` (playbook, build log) are plain files, not site pages: read them on GitHub.
 
 ## The Short
 

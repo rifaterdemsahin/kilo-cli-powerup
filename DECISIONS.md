@@ -115,6 +115,14 @@ Every non-obvious choice made while building this Short, and why.
 | Description: the full `https://www.skool.com/delivery-pilot-8938` link as the 2nd paragraph (above the fold) and again before the hashtags; also in the pinned comment | YouTube only shows the first ~2 lines collapsed; full `https://` URLs are clickable. Placed in `index.html` defaults (use "Reset to default" if you edited earlier). |
 | Link supplied by the user | Not verified by me that the page is live or public. |
 
+## GitHub Pages
+| Decision | Why |
+|---|---|
+| Enabled Pages from `main` + `/docs` (public repo, user asked to deploy and enable) | Publishing only `docs/` avoids serving the repo root (storyboard, assets, transcripts, publish kit) as a website. |
+| `docs/.nojekyll`; `docs/index.html` redirects to `scoring.html` | Serve files as-is (no Jekyll rendering of the `.md` docs); the site root would otherwise 404. |
+| Translation keeps "köseler" as "corners" and flags it as probably "köşeler" | I can't tell from text alone whether "corners" means key moments; the page says so and asks to be corrected. |
+| "Scoring" explained as selective sound design, noting the formal meaning (composing film music) | The speaker uses the word loosely; the page states that this is an interpretation. |
+
 ## Secrets
 | Decision | Why |
 |---|---|

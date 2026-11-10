@@ -25,6 +25,7 @@ Chronological record of everything done in this project, including dead ends. De
 | 18 | Longer intro: +2 s before the first word, curiosity teaser on frame 0 + the question, and cut the filler "As you see here though," via `voice_trim` so the Short stays at 29.6 s. Added `hook.teaser`, `voice_trim` to `storyboard.json`, prep shifts/drops caption words, `Short.tsx` plays the trimmed voice inside a `Sequence`. | Doing it naively (+2 s) would have been 31.5 s, over the 30 s limit. |
 | 19 | Hook hold extended to 4.8 s (callout 1 -> 4.9 s) and a bolder progress bar. | Overlapping hold with the first words keeps the length at 29.6 s. |
 | 20 | Skool end card (27.5 s) + link as a click-to-action in the description and pinned comment. | `endCard` is optional in the engine/template. |
+| 21 | Translated the user's Turkish voice note on "scoring" to English, explained it, saved as `docs/scoring.html`, enabled GitHub Pages (`main` + `/docs`) via `gh api`, waited for the build, verified HTTP 200, linked it in the README. | Pages built in ~40 s. Only `docs/` is published. |
 
 ## Commands that reproduce the Short
 

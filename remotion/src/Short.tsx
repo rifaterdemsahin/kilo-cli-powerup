@@ -4,6 +4,7 @@ import {
   spring, staticFile, useCurrentFrame, useVideoConfig,
 } from 'remotion';
 import data from '../public/data.json';
+import {JevSketch} from './JevSketch';
 
 const CYAN = '#22d3ee';
 const VIOLET = '#a78bfa';
@@ -131,26 +132,26 @@ const Subtitles: React.FC = () => {
 };
 
 
-// ---------- screenshot callout with a moving arrow ----------
-// Shows the user's Kilo CLI screenshot and an arrow that points at LSP, then glides to Code Indexing.
-const Callout: React.FC = () => {
+// ---------- screenshot callouts with a moving arrow ----------
+// Each callout shows one of the user's screenshots; the arrow points at the current target
+// and glides to the next target when its time comes. Layout lives in storyboard.json -> callouts.
+type CalloutCfg = (typeof data.callouts)[number];
+const Callout: React.FC<{c: CalloutCfg}> = ({c}) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
-  const c = data.callout;
-  if (!c || !c.image) return null;
   const t = frame / fps;
-  if (t < c.start || t > c.end) return null;
+  if (!c.image || t < c.start || t > c.end) return null;
   const local = frame - Math.round(c.start * fps);
   const enter = spring({frame: local, fps, config: {damping: 13}});
   const exit = interpolate(t, [c.end - 0.25, c.end], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-  const h = c.width * (1376 / 658);
+  const h = c.width * (c.aspect[1] / c.aspect[0]);
 
-  // which target + eased glide between targets
-  const [a, b] = c.targets;
-  const glide = spring({frame: frame - Math.round(b.at * fps), fps, config: {damping: 16, stiffness: 120}});
-  const arrowY = interpolate(glide, [0, 1], [a.arrowY, b.arrowY]);
-  const boxY = interpolate(glide, [0, 1], [a.boxY, b.boxY]);
-  const arrowIn = spring({frame: frame - Math.round(a.at * fps), fps, config: {damping: 10, stiffness: 140}});
+  const idx = Math.max(0, c.targets.reduce((n, tg, i) => (t >= tg.at ? i : n), 0));
+  const cur = c.targets[idx];
+  const prev = c.targets[Math.max(0, idx - 1)];
+  const glide = idx === 0 ? 1 : spring({frame: frame - Math.round(cur.at * fps), fps, config: {damping: 16, stiffness: 120}});
+  const L = (k: 'arrowX' | 'arrowY' | 'boxX' | 'boxW' | 'boxY' | 'boxH') => interpolate(glide, [0, 1], [prev[k], cur[k]]);
+  const arrowIn = spring({frame: frame - Math.round(c.targets[0].at * fps), fps, config: {damping: 10, stiffness: 140}});
   const bob = Math.sin(t * 9) * 14;
   const pulse = 0.6 + 0.4 * Math.sin(t * 8);
   const YEL = '#facc15';
@@ -163,16 +164,16 @@ const Callout: React.FC = () => {
         transform: `scale(${0.85 + 0.15 * enter})`, opacity: enter,
         boxShadow: `0 0 0 4px ${CYAN}, 0 0 60px ${CYAN}88`,
       }} />
-      {t >= a.at - 0.2 && (
+      {t >= c.targets[0].at - 0.2 && (
         <>
           <div style={{
-            position: 'absolute', left: c.x + 14, width: c.width - 28, top: boxY, height: a.boxH,
-            border: `5px solid ${YEL}`, borderRadius: 14, opacity: arrowIn * pulse,
-            boxShadow: `0 0 28px ${YEL}`,
+            position: 'absolute', left: L('boxX'), width: L('boxW'), top: L('boxY'), height: L('boxH'),
+            border: `5px solid ${YEL}`, borderRadius: 14, opacity: arrowIn * pulse, boxShadow: `0 0 28px ${YEL}`,
           }} />
           <svg width={420} height={150} viewBox="0 0 420 150" style={{
-            position: 'absolute', left: c.x + c.width - 120 + (1 - arrowIn) * 400 + bob, top: arrowY - 75,
+            position: 'absolute', left: L('arrowX') + (1 - arrowIn) * 400 + bob, top: L('arrowY') - 75,
             filter: `drop-shadow(0 0 18px ${YEL})`,
+            transform: `scale(${(cur as {arrowScale?: number}).arrowScale ?? 1})`, transformOrigin: '0 50%',
           }}>
             <path d="M0 75 L70 10 L70 52 L420 52 L420 98 L70 98 L70 140 Z" fill={YEL} stroke="#000" strokeWidth={6} strokeLinejoin="round" />
           </svg>
@@ -203,7 +204,8 @@ export const Short: React.FC = () => {
           {s.sfx && <Audio src={staticFile(s.sfx)} volume={0.6} startFrom={0} />}
         </Sequence>
       ))}
-      <Callout />
+      <JevSketch />
+      {data.callouts.map((c) => <Callout key={c.id} c={c} />)}
       <Subtitles />
       <Progress />
       {data.voice && <Audio src={staticFile(data.voice)} />}

@@ -25,7 +25,7 @@ build/short.mp4   (1080x1920, 27 s)
 2. **Transcribe** locally with Whisper. Silent files produce "Thank you." hallucinations.
 3. **Storyboard**: `storyboard.json` drives everything: shot timings, image prompts, which shots animate, SFX, music.
 4. **Generate** with fal.ai (cheap model, 2 animated shots, rest Ken Burns). Cached, so re-runs are free.
-5. **Callout**: the Kilo CLI screenshot (`assets/images/`) is shown 4.8-10 s with an arrow that points at LSP, then Code Indexing (`callout` in `storyboard.json`).
+5. **Callouts** (`callouts` in `storyboard.json`): your screenshots (`assets/images/`) with an animated arrow: the status screen -> LSP (4.8-8.8 s), `indexing.jpg` -> the indexing icon (8.8-10.8 s). A pencil-sketch **JEV** diagram, drawn in Remotion (`JevSketch.tsx`), plays at 12.4-17.9 s.
 6. **Render** with Remotion. Subtitles are word-level: phrases spring in, the active word pops cyan, keywords are violet.
 7. **Review** in `npm run studio`, then publish `build/short.mp4`.
 

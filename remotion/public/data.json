@@ -2,29 +2,64 @@
   "duration": 27,
   "voice": "voice.wav",
   "music": "music.wav",
-  "callout": {
-    "image": "callout.jpeg",
-    "start": 4.8,
-    "end": 10.0,
-    "x": 190,
-    "y": 260,
-    "width": 700,
-    "targets": [
-      {
-        "at": 7.2,
-        "label": "LSP",
-        "arrowY": 1210,
-        "boxY": 1168,
-        "boxH": 82
-      },
-      {
-        "at": 9.0,
-        "label": "Code Indexing",
-        "arrowY": 1115,
-        "boxY": 1074,
-        "boxH": 82
-      }
-    ]
+  "callouts": [
+    {
+      "id": "lsp",
+      "image": "callout_lsp.jpeg",
+      "aspect": [
+        658,
+        1376
+      ],
+      "start": 4.8,
+      "end": 8.8,
+      "x": 190,
+      "y": 260,
+      "width": 700,
+      "targets": [
+        {
+          "at": 7.2,
+          "label": "LSP",
+          "arrowX": 770,
+          "arrowY": 1210,
+          "boxX": 204,
+          "boxW": 672,
+          "boxY": 1168,
+          "boxH": 82
+        }
+      ]
+    },
+    {
+      "id": "indexing",
+      "image": "callout_indexing.jpg",
+      "aspect": [
+        690,
+        338
+      ],
+      "start": 8.8,
+      "end": 10.8,
+      "x": 60,
+      "y": 640,
+      "width": 960,
+      "targets": [
+        {
+          "at": 9.1,
+          "label": "Indexing",
+          "arrowX": 770,
+          "arrowY": 930,
+          "boxX": 684,
+          "boxW": 72,
+          "boxY": 894,
+          "boxH": 72,
+          "arrowScale": 0.55
+        }
+      ]
+    }
+  ],
+  "jev": {
+    "reference": "assets/images/jev.webp",
+    "start": 12.4,
+    "end": 17.9,
+    "renderer": "remotion/src/JevSketch.tsx"
   },
   "words": [
     {

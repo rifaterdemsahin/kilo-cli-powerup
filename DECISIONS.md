@@ -39,13 +39,25 @@ Every non-obvious choice made while building this Short, and why.
 | Placeholder backgrounds when images are missing | Lets the composition render and be reviewed without a working fal.ai key. |
 | `remotion/public/data.json` is committed, media is not | The JSON is small and needed to typecheck. Media is big and reproducible. |
 
-## Screenshot callout
+## Screenshot callouts (storyboard.json -> `callouts[]`)
 | Decision | Why |
 |---|---|
-| Use the user's real Kilo CLI screenshot (`assets/images/kilo-lsp.jpeg`, latest image in Downloads) from 4.8-10.0 s | Real proof beats an AI image of a terminal. It shows LSP and Code Indexing both *disabled*, which matches "I'm going to enable LSP and indexing". |
-| Moving yellow arrow + pulsing box: points at LSP when "LSP" is spoken (7.2 s), glides to Code Indexing on "indexing" (9.0 s) | Syncs the visual to the narration. Targets and pixel positions live in `storyboard.json` -> `callout`, so they are editable without code changes. |
-| Screenshot is dimmed-backdrop, framed in cyan, shown 700 px wide | Keeps the text readable on a phone while the animated shot stays visible behind it. |
-| "JEV" is confirmed | The screenshot title reads "LSP and JEV status check", so the transcript is correct as written. |
+| Real screenshots instead of AI images for the Kilo UI | Real proof beats an AI terminal. `kilo-lsp.jpeg` (latest Downloads image) shows LSP and Code Indexing both *disabled*, matching "I'm going to enable LSP and indexing". |
+| Callout 1, 4.8-8.8 s: status screen, arrow + pulsing box on **LSP** at the moment "LSP" is spoken (7.2 s) | Syncs visual to narration. |
+| Callout 2, 8.8-10.8 s: `indexing.jpg` ("Indexing is initializing."), arrow on the database icon at "indexing" (9.1 s) | User asked for this image for the indexing part. It replaced my earlier arrow-to-Code-Indexing on the status screen, and is a livelier moment. It runs 0.8 s past the spoken word so it can be read. |
+| Callouts are a list; each has image, aspect, position, targets (arrow x/y/scale, highlight box) | Add or move a callout by editing JSON, no code change. The arrow glides between targets within one callout. |
+| Arrow scaled to 0.55 on the indexing image | At full size the arrow head covered the tooltip text. |
+| Dimmed backdrop + cyan frame, images 700-960 px wide | Readable on a phone while the animated shot stays visible behind. |
+
+## JEV sketch (12.4-17.9 s, "I also use JEV...")
+| Decision | Why |
+|---|---|
+| Reference = user's `jev.webp`: server -> padlock -> gears -> blue/red branches -> JSON document. Read as JSON extraction & validation (assumption, from the image; the label just says "JEV") | The screenshot title is "LSP and JEV status check", so the term is real. |
+| Redrawn natively in Remotion (`remotion/src/JevSketch.tsx`) as a vertical 9:16 pencil sketch | The user wanted a similar, short, friendly version. |
+| fal.ai attempt rejected | flux/schnell produced a nice style but invented garbled text ("Doccen", "Carck.") and lost the blue/red split, which is the point of the diagram. Cost was a fraction of a cent; the file is unused. |
+| Strokes draw on in sequence (server, lock, gears, branches, check/cross, JSON) over ~4.5 s; gears spin | Teaches the flow in the order it is explained, and stays under the shot length. |
+| Check mark (blue = valid) and cross (red = error); handwritten blue "JEV" label with underline | Friendly, and readable without any text. |
+| Pencil wobble and paper grain via SVG filters, not an image | Resolution-independent, tiny, and no AI artefacts. |
 
 ## Secrets
 | Decision | Why |

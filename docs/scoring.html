@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scoring Explained</title>
+<meta name="description" content="Scoring: add small sounds only at the moments that matter. A translated note, an explanation, and how it applies to a Short.">
+<style>
+  :root {
+    --bg: #f6f7fb; --card: #ffffff; --ink: #151827; --muted: #5d6478; --line: #dfe3ee;
+    --accent: #0e7490; --keep: #15803d; --keep-bg: #e6f6ec; --drop: #b42318; --drop-bg: #fdecea; --field: #f1f3f9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d1020; --card: #161a2e; --ink: #eef0fa; --muted: #9aa3bd; --line: #2a3050;
+      --accent: #22d3ee; --keep: #4ade80; --keep-bg: #12301e; --drop: #f87171; --drop-bg: #3a1a1a; --field: #0f1327;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 28px 16px 72px; }
+  h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 6px; }
+  h2 { font-size: 1.25rem; margin: 0 0 10px; }
+  .sub { color: var(--muted); margin: 0 0 24px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px; margin-bottom: 18px; }
+  blockquote { margin: 0; padding: 4px 0 4px 16px; border-left: 4px solid var(--accent); }
+  blockquote p { margin: 0 0 12px; }
+  blockquote p:last-child { margin-bottom: 0; }
+  .note { color: var(--muted); font-size: .92rem; }
+  details { margin-top: 12px; }
+  summary { cursor: pointer; color: var(--accent); font-weight: 600; }
+  summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .orig { background: var(--field); border-radius: 10px; padding: 12px 14px; margin-top: 10px; }
+  .scene { display: grid; gap: 8px; margin: 14px 0 4px; }
+  .row { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; padding: 10px 14px; border-radius: 10px; }
+  .row.keep { background: var(--keep-bg); border: 1.5px solid var(--keep); }
+  .row.drop { background: var(--drop-bg); border: 1.5px dashed var(--drop); }
+  .row.drop .what { text-decoration: line-through; text-decoration-thickness: 1.5px; opacity: .85; }
+  .tag { font-weight: 700; font-size: .85rem; white-space: nowrap; }
+  .keep .tag { color: var(--keep); } .drop .tag { color: var(--drop); }
+  ul { padding-left: 20px; margin: 8px 0 0; } li { margin: 6px 0; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 620px) { .grid2 { grid-template-columns: 1fr; } }
+  dt { font-weight: 700; margin-top: 10px; } dd { margin: 2px 0 0; color: var(--muted); }
+  code { background: var(--field); padding: 1px 6px; border-radius: 6px; font-size: .92em; }
+  footer { color: var(--muted); font-size: .9rem; margin-top: 28px; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Scoring: add sound only where it matters</h1>
+  <p class="sub">An English translation of a voice note, what "scoring" means in it, and how to use the idea.</p>
+
+  <section class="card" aria-labelledby="t">
+    <h2 id="t">English translation</h2>
+    <blockquote>
+      <p>Life has its corners. When you add small extra sounds to those corners, that's scoring. It doesn't have to be everywhere.</p>
+      <p>For example, say you're reading a book. The sound of a page turning is enough for us to understand that you're reading a book. And while you read, we don't need to hear the extra sounds of you touching the page or breathing.</p>
+      <p>(This is only an example.)</p>
+    </blockquote>
+    <p class="note">Translation notes: "köseler" is most likely a dictation slip for "köşeler" (corners). Here "corners" reads as the key moments or beats of a scene, so I kept the literal word and explain it below. Please correct me if you meant something else. "va" was read as "ve" (and).</p>
+    <details>
+      <summary>Show the original Turkish</summary>
+      <p class="orig" lang="tr">Ya hayatta köseler var. O köselere minik ekstra sesler eklediğinde scoring oluyor. Her yere olmak zorunda değil. Yani mesela kitap okuyorsun sayfa çevirirken sayfa değiştirme sesi bizim senin kitap okuduğunu anlamamız için yeterli. Bir de okurken ekstradan sayfaya elleğin, nefes aldığın ve sesleri duymamıza gerek yok. (Bu bir örnek sadece)</p>
+    </details>
+  </section>
+
+  <section class="card" aria-labelledby="w">
+    <h2 id="w">What "scoring" means here</h2>
+    <p>Formally, a film's <em>score</em> is the music composed for it, and <em>scoring</em> is writing and placing that music. The speaker uses the word more loosely, for <strong>sound design</strong>: choosing the few sounds (small effects, foley, or short music cues) that you add to a scene to support the picture.</p>
+    <p>The core idea is <strong>selective</strong> sound. A scene has a handful of key moments (the "corners"). Put a small, clear sound on those moments and leave the rest alone. Silence, or just the natural room sound, is a valid choice everywhere else.</p>
+    <dl>
+      <dt>Sound design</dt><dd>Deciding which sounds the audience hears, and when.</dd>
+      <dt>Foley</dt><dd>Everyday sounds recorded or created to match actions on screen: footsteps, cloth, a page turning.</dd>
+      <dt>Sound cue</dt><dd>One short sound that tells the viewer something happened (a page turn means "reading").</dd>
+      <dt>Signal vs. noise</dt><dd>A sound that carries meaning is signal. Breath, finger-on-paper rustle and other incidental detail are usually noise.</dd>
+    </dl>
+  </section>
+
+  <section class="card" aria-labelledby="e">
+    <h2 id="e">The example: reading a book</h2>
+    <div class="scene" role="list">
+      <div class="row keep" role="listitem"><span class="what">Page turning</span><span class="tag">KEEP: it says "reading"</span></div>
+      <div class="row drop" role="listitem"><span class="what">Fingers touching the page</span><span class="tag">SKIP: adds nothing</span></div>
+      <div class="row drop" role="listitem"><span class="what">Breathing while reading</span><span class="tag">SKIP: distracting</span></div>
+    </div>
+    <p>One sound at the right moment tells the whole story. Adding the touch and the breath would not make the scene clearer. It would only make it busier, and it would bury the one sound that mattered.</p>
+  </section>
+
+  <section class="card" aria-labelledby="r">
+    <h2 id="r">Rules of thumb</h2>
+    <div class="grid2">
+      <div>
+        <strong>Do</strong>
+        <ul>
+          <li>Find the moments that carry meaning: a cut, an action, a reveal.</li>
+          <li>Use one clear, recognizable sound per moment.</li>
+          <li>Keep it short and mix it under the voice.</li>
+          <li>Let silence or room tone fill the gaps.</li>
+        </ul>
+      </div>
+      <div>
+        <strong>Avoid</strong>
+        <ul>
+          <li>Sound on every movement "for realism".</li>
+          <li>Stacking several sounds on one action.</li>
+          <li>Sounds that mean nothing to the story (breath, rustle).</li>
+          <li>Effects that cover the words.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note" style="margin-top:14px">Test: remove a sound. If nobody would notice it missing, it was not scoring, it was clutter.</p>
+  </section>
+
+  <section class="card" aria-labelledby="s">
+    <h2 id="s">How this applies to the Kilo CLI Short</h2>
+    <ul>
+      <li>Sound effects are only on the key moments (the start, each scene change, the "critical part", the DeepSeek reveal), not on every on-screen movement.</li>
+      <li>Effects are mixed low (about 30%) and the music ducks to about 6% while someone is speaking, so the voice stays clear.</li>
+      <li>The voice recording is cleaned (rumble and hiss reduced) so incidental noise doesn't compete with the message.</li>
+      <li>The first 3 seconds have no voice. A small typing sound plus quiet music sets the scene without filling the space.</li>
+    </ul>
+    <p class="note">Project: <a href="https://github.com/rifaterdemsahin/kilo-cli-powerup">rifaterdemsahin/kilo-cli-powerup</a>.</p>
+  </section>
+
+  <footer>Translated from a Turkish voice note. The explanation of "scoring" is an interpretation of how the term is used in the note.</footer>
+</main>
+</body>
+</html>

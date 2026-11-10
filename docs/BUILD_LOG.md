@@ -24,6 +24,7 @@ Chronological record of everything done in this project, including dead ends. De
 | 17 | Added a thumbnail composition (`Thumb.tsx`, `npm run thumb` -> `assets/thumbnail.jpg`) and `index.html`, a publish kit with editable title options, description, hashtags, tags, pinned comment, copy buttons and the thumbnail. First thumbnail clipped "DEEPSEEK" at the right edge -> shrunk the type. Tested in Chrome: real mouse click shows "Copied" (synthetic `.click()` and `clipboard.readText()` are not valid tests: the latter hangs on a permission prompt). Port 8765 was already used by another local app ("Downloads -> Vault"), so I served on 8791 and confirmed the page title before testing. | The extension can't open `file://`; serve on a free port. Always check the page you are testing is yours. |
 | 18 | Longer intro: +2 s before the first word, curiosity teaser on frame 0 + the question, and cut the filler "As you see here though," via `voice_trim` so the Short stays at 29.6 s. Added `hook.teaser`, `voice_trim` to `storyboard.json`, prep shifts/drops caption words, `Short.tsx` plays the trimmed voice inside a `Sequence`. | Doing it naively (+2 s) would have been 31.5 s, over the 30 s limit. |
 | 19 | Hook hold extended to 4.8 s (callout 1 -> 4.9 s) and a bolder progress bar. | Overlapping hold with the first words keeps the length at 29.6 s. |
+| 20 | Skool end card (27.5 s) + link as a click-to-action in the description and pinned comment. | `endCard` is optional in the engine/template. |
 
 ## Commands that reproduce the Short
 

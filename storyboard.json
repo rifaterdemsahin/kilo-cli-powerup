@@ -210,5 +210,12 @@
     "from": 3.0,
     "at": 3.1,
     "why": "drop the filler opener; intro before the first spoken word grows from 1.2 s to 3.2 s"
+  },
+  "endCard": {
+    "at": 27.5,
+    "line1": "Join the community",
+    "line2": "skool.com/delivery-pilot-8938",
+    "line3": "Link in the description",
+    "url": "https://www.skool.com/delivery-pilot-8938"
   }
 }

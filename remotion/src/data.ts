@@ -24,11 +24,12 @@ export interface Formula {
 }
 export interface Banner {start: number; end: number; question: string; answer: string; sub: string}
 export interface Thumbnail {chip: string; big: string; accent: string; foot: string; image: string | null}
+export interface EndCard {at: number; line1: string; line2: string; line3?: string; url?: string}
 export interface Sketch {start: number; end: number}
 export interface ShortData {
   duration: number; voice: string | null; voiceTrim: {from: number; at: number} | null; music: string | null;
   words: Word[]; shots: Shot[]; callouts: CalloutCfg[];
-  hook: Hook | null; formula: Formula | null; banner: Banner | null; jev: Sketch | null; thumbnail: Thumbnail | null;
+  hook: Hook | null; formula: Formula | null; banner: Banner | null; jev: Sketch | null; endCard: EndCard | null; thumbnail: Thumbnail | null;
 }
 
 export const data = raw as unknown as ShortData;

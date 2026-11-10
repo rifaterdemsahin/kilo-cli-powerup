@@ -76,6 +76,13 @@
       "frontier"
     ]
   },
+  "endCard": {
+    "at": 27.5,
+    "line1": "Join the community",
+    "line2": "skool.com/delivery-pilot-8938",
+    "line3": "Link in the description",
+    "url": "https://www.skool.com/delivery-pilot-8938"
+  },
   "voiceTrim": {
     "from": 3.0,
     "at": 3.1,

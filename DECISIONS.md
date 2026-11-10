@@ -107,6 +107,14 @@ Every non-obvious choice made while building this Short, and why.
 | Progress bar: 26 px track (white 22%), glowing cyan->violet fill, round white head with violet ring (was a 14 px sliver) | User asked for a bottom progress bar; the old one was too thin to notice. Constants `BAR_H` / `BAR_BOTTOM` in `Short.tsx`. |
 | Bar sits at the very bottom | Shorts draws its own thin bar there too; if it clashes in the app, raise `BAR_BOTTOM` (e.g. 120) so it clears the player controls. Not tested in the app. |
 
+## Skool call to action
+| Decision | Why |
+|---|---|
+| End card from 27.5 s: "Join the community / skool.com/delivery-pilot-8938 / Link in the description", below the formula panel, above the progress bar | User request. Appears after the voice has finished (26.4 s) so it never competes with speech; ~2.1 s on screen. Text/URL in `storyboard.json` -> `endCard` (optional in the template). |
+| On-screen text is the short form (no `https://www.`) | Readable at a glance; a link in a video can't be clicked, hence "Link in the description". |
+| Description: the full `https://www.skool.com/delivery-pilot-8938` link as the 2nd paragraph (above the fold) and again before the hashtags; also in the pinned comment | YouTube only shows the first ~2 lines collapsed; full `https://` URLs are clickable. Placed in `index.html` defaults (use "Reset to default" if you edited earlier). |
+| Link supplied by the user | Not verified by me that the page is live or public. |
+
 ## Secrets
 | Decision | Why |
 |---|---|

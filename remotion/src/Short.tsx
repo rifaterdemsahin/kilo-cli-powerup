@@ -314,6 +314,31 @@ const Formula: React.FC = () => {
   );
 };
 
+// ---------- end card (call to action) ----------
+// Sits below the formula panel in the last seconds. Text/URL in storyboard.json -> endCard.
+const EndCard: React.FC = () => {
+  const frame = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  const c = data.endCard;
+  if (!c) return null;
+  const t = frame / fps;
+  if (t < c.at) return null;
+  const p = spring({frame: frame - Math.round(c.at * fps), fps, config: {damping: 10, stiffness: 150}});
+  const pulse = 0.65 + 0.35 * Math.sin(t * 6);
+  return (
+    <div style={{
+      position: 'absolute', left: 60, right: 60, bottom: 270, textAlign: 'center', padding: '30px 24px', borderRadius: 40,
+      background: 'linear-gradient(135deg, #5b21b6, #0e7490)', border: '4px solid #fff',
+      boxShadow: `0 0 ${50 * pulse}px ${VIOLET}`, opacity: Math.min(1, p * 1.5),
+      transform: `translateY(${(1 - p) * 140}px) scale(${0.85 + 0.15 * p})`, fontFamily: 'Helvetica, Arial, sans-serif',
+    }}>
+      <div style={{fontSize: 46, fontWeight: 800, color: '#fff', letterSpacing: 3, textTransform: 'uppercase'}}>{c.line1}</div>
+      <div style={{fontSize: 62, fontWeight: 900, color: '#facc15', marginTop: 6, textShadow: '0 4px 0 rgba(0,0,0,.45)'}}>{c.line2}</div>
+      {c.line3 && <div style={{fontSize: 38, fontWeight: 700, color: '#e0f2fe', marginTop: 8}}>{c.line3}</div>}
+    </div>
+  );
+};
+
 // ---------- progress bar ----------
 // Bold bottom bar: dark track, glowing gradient fill, round head. Height/offset in px: BAR_H, BAR_BOTTOM.
 const BAR_H = 26;
@@ -348,6 +373,7 @@ export const Short: React.FC = () => {
       <Hook />
       <Banner />
       <Formula />
+      <EndCard />
       <Subtitles />
       <Progress />
       {data.voice && (data.voiceTrim ? (

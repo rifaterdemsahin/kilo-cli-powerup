@@ -41,6 +41,7 @@ whole video in real time.** Please do one playback pass on a phone before publis
 | V5 | Value | The viewer learns the ingredients but not the steps (how to enable LSP, how to turn on indexing, what JEV does). I did not invent steps. Suggest: steps in the description or a pinned comment, and one follow-up Short per ingredient. | High | **Open (needs you)** | |
 | V6 | Value | "JEV" is never explained on screen. The sketch implies JSON extraction/validation (my reading of `jev.webp`). Confirm and add a 3-word label if wrong. | Medium | **Open (needs you)** | |
 | V7 | Value | Added a safe CTA, "Save this formula" (no promise you haven't made). | Low | **Added** | |
+| V8 | Value | Skool CTA: end card (27.5-29.6 s) + link at the top of the description and in the pinned comment. Link is yours; I did not check the community page. The card says what it is ("Join the community") and promises nothing else. | Low | **Added** | still at 29.5 s |
 
 ## Unverified claims (you must confirm)
 

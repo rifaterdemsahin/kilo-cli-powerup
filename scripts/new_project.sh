@@ -21,7 +21,7 @@ for f in PROJECT_README:README SANITY_CHECK:SANITY_CHECK DECISIONS:DECISIONS; do
 done
 # stub so `tsc`/studio work before the first prep run
 cat > "$DEST/remotion/public/data.json" <<'JSON'
-{"duration":10,"voice":null,"music":null,"words":[],"shots":[],"callouts":[],"hook":null,"formula":null,"banner":null,"jev":null,"thumbnail":null}
+{"duration":10,"voice":null,"music":null,"words":[],"shots":[],"callouts":[],"hook":null,"formula":null,"banner":null,"jev":null,"thumbnail":null,"endCard":null}
 JSON
 chmod +x "$DEST"/scripts/*.sh "$DEST"/scripts/*.py
 (cd "$DEST" && git init -q && echo "initialised git repo")

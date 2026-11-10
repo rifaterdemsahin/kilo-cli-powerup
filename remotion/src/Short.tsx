@@ -3,7 +3,7 @@ import {
   AbsoluteFill, Audio, Freeze, Img, OffthreadVideo, Sequence, interpolate, random,
   spring, staticFile, useCurrentFrame, useVideoConfig,
 } from 'remotion';
-import data from '../public/data.json';
+import {data} from './data';
 import {JevSketch} from './JevSketch';
 
 const CYAN = '#22d3ee';
@@ -197,7 +197,7 @@ const Hook: React.FC = () => {
   const enter = spring({frame, fps, config: {damping: 12}});
   const exit = interpolate(t, [h.end - 0.35, h.end], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   const words = h.text.split(' ');
-  const perWord = 0.2;
+  const perWord = 0.17;
   return (
     <div style={{
       position: 'absolute', left: 70, right: 70, top: 330, padding: '46px 52px', borderRadius: 44,
@@ -217,6 +217,37 @@ const Hook: React.FC = () => {
           }}>{w}</span>
         );
       })}
+    </div>
+  );
+};
+
+// ---------- "why bother?" value banner ----------
+// Question, then the answer (e.g. a cost claim) pops in big. Text lives in storyboard.json -> banner.
+const Banner: React.FC = () => {
+  const frame = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  const b = data.banner;
+  if (!b) return null;
+  const t = frame / fps;
+  if (t < b.start || t > b.end) return null;
+  const enter = spring({frame: frame - Math.round(b.start * fps), fps, config: {damping: 13}});
+  const ans = spring({frame: frame - Math.round((b.start + 0.9) * fps), fps, config: {damping: 9, stiffness: 190}});
+  const exit = interpolate(t, [b.end - 0.3, b.end], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const glow = 0.6 + 0.4 * Math.sin(t * 7);
+  return (
+    <div style={{
+      position: 'absolute', left: 70, right: 70, top: 330, padding: '48px 44px', borderRadius: 48, textAlign: 'center',
+      background: 'rgba(8,12,28,0.84)', border: `5px solid #facc15`, boxShadow: '0 0 60px #facc1588',
+      opacity: exit * Math.min(1, enter * 1.5), transform: `scale(${0.85 + 0.15 * enter})`,
+      fontFamily: 'Helvetica, Arial, sans-serif',
+    }}>
+      <div style={{fontSize: 58, fontWeight: 800, color: '#fff', lineHeight: 1.2}}>{b.question}</div>
+      <div style={{
+        marginTop: 22, fontSize: 150, fontWeight: 900, color: '#facc15', lineHeight: 1,
+        opacity: Math.min(1, ans * 1.4), transform: `scale(${0.5 + 0.5 * ans})`,
+        textShadow: `0 0 ${50 * glow}px #facc15`, textTransform: 'uppercase',
+      }}>{b.answer}</div>
+      <div style={{marginTop: 18, fontSize: 56, fontWeight: 800, color: CYAN, opacity: Math.min(1, ans * 1.4)}}>{b.sub}</div>
     </div>
   );
 };
@@ -259,6 +290,10 @@ const Formula: React.FC = () => {
         fontWeight: 900, fontSize: 88, color: '#facc15', opacity: Math.min(1, resP * 1.4),
         transform: `scale(${0.6 + 0.4 * resP})`, textShadow: `0 0 ${40 * glow}px #facc15`,
       }}>= {f.result.t}</div>
+      {f.cta && (
+        <div style={{marginTop: 26, fontWeight: 800, fontSize: 52, color: '#fff', letterSpacing: 2,
+          opacity: pop(f.cta.at), textTransform: 'uppercase'}}>{f.cta.t}</div>
+      )}
     </div>
   );
 };
@@ -281,17 +316,23 @@ export const Short: React.FC = () => {
         <Sequence key={s.id} from={Math.round(s.start * fps)} durationInFrames={Math.round((s.end - s.start) * fps)}>
           <ShotLayer shot={s} />
           <Chip text={s.label} />
-          {s.sfx && <Audio src={staticFile(s.sfx)} volume={0.6} startFrom={0} />}
+          {s.sfx && <Audio src={staticFile(s.sfx)} volume={0.3} startFrom={0} />}
         </Sequence>
       ))}
       <JevSketch />
       {data.callouts.map((c) => <Callout key={c.id} c={c} />)}
       <Hook />
+      <Banner />
       <Formula />
       <Subtitles />
       <Progress />
       {data.voice && <Audio src={staticFile(data.voice)} />}
-      {data.music && <Audio src={staticFile(data.music)} loop volume={(f) => 0.15 * interpolate(f, [data.duration * fps - 45, data.duration * fps], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})} />}
+      {data.music && <Audio src={staticFile(data.music)} loop volume={(f) => {
+        const tt = f / fps;
+        const speaking = data.words.some((w) => tt >= w.start - 0.15 && tt <= w.end + 0.25);
+        const fadeOut = interpolate(f, [data.duration * fps - 45, data.duration * fps], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+        return (speaking ? 0.06 : 0.2) * fadeOut; // duck under the voice, swell in the gaps
+      }} />}
     </AbsoluteFill>
   );
 };

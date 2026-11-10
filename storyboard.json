@@ -2,7 +2,7 @@
   "title": "Kilo CLI power-up",
   "duration": 29.5,
   "voiceover": "assets/audio/ZOOM0022.WAV",
-  "style": "dark terminal aesthetic, neon cyan and violet glow, clean vector-like 3D, vertical 9:16, no text, no logos",
+  "style": "dark terminal aesthetic, neon cyan and violet glow, clean vector-like 3D, vertical 9:16, no text, no logos, absolutely no text, letters, numbers or UI",
   "music": {
     "prompt": "calm minimal lo-fi tech beat, soft synth pad, subtle pulse, instrumental, loopable",
     "seconds": 27
@@ -46,7 +46,7 @@
       "id": "s4",
       "start": 18,
       "end": 23,
-      "image": "a developer workflow board with tasks flowing automatically across columns, neon lines",
+      "image": "abstract glowing neon streams of light particles flowing smoothly from left to right through three luminous glass gates, minimal, pure light and geometry, no screens, no interface, no writing",
       "caption_hint": "Get the task done",
       "sfx": {
         "at": 18.0,
@@ -80,12 +80,23 @@
         658,
         1376
       ],
-      "start": 4.8,
+      "start": 3.7,
       "end": 8.8,
       "x": 190,
       "y": 260,
       "width": 700,
       "targets": [
+        {
+          "at": 4.3,
+          "label": "DeepSeek $0.00",
+          "arrowX": 940,
+          "arrowY": 1036,
+          "boxX": 204,
+          "boxW": 672,
+          "boxY": 1010,
+          "boxH": 58,
+          "arrowScale": 0.55
+        },
         {
           "at": 7.2,
           "label": "LSP",
@@ -128,7 +139,7 @@
   "hook": {
     "text": "How can you make DeepSeek work as good as a frontier CLI?",
     "start": 0.0,
-    "end": 4.5,
+    "end": 3.6,
     "highlight": [
       "DeepSeek",
       "frontier"
@@ -160,8 +171,31 @@
       }
     ],
     "result": {
-      "t": "Frontier-level results",
+      "t": "Frontier-like results",
       "at": 27.0
+    },
+    "cta": {
+      "t": "Save this formula",
+      "at": 28.0
     }
+  },
+  "words_json": "assets/transcript/ZOOM0022.words.json",
+  "transcript_srt": "assets/transcript/ZOOM0022.srt",
+  "word_patches": [
+    {
+      "after": "using",
+      "text": "DeepSeek",
+      "start": 25.6,
+      "end": 26.3,
+      "why": "word-timestamp pass dropped the final word; segment pass heard it"
+    }
+  ],
+  "banner": {
+    "start": 21.0,
+    "end": 24.3,
+    "question": "Why go through all this hassle?",
+    "answer": "10x less cost",
+    "sub": "than a frontier model setup",
+    "source": "claim supplied by the user, not measured in this project"
   }
 }

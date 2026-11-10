@@ -1,0 +1,48 @@
+{
+  "_help": "Copy of this file is your project's single source of truth. Times are seconds on the final video timeline. Remove any optional block (hook, banner, formula, callouts, jev, music) you don't need.",
+  "title": "REPLACE: working title",
+  "duration": 29.5,
+  "voiceover": "assets/audio/REPLACE_ME.WAV",
+  "words_json": "assets/transcript/REPLACE_ME.words.json",
+  "transcript_srt": "assets/transcript/REPLACE_ME.srt",
+  "word_patches": [],
+  "_word_patches_help": "Whisper's word pass sometimes drops the last word. Example: {\"after\":\"using\",\"text\":\"DeepSeek\",\"start\":25.6,\"end\":26.3}",
+  "style": "REPLACE: one consistent look, e.g. dark neon, vertical 9:16, absolutely no text, letters, numbers or UI",
+  "music": {"prompt": "calm minimal lo-fi tech beat, soft synth pad, instrumental, loopable", "seconds": 27},
+  "shots": [
+    {
+      "id": "s1", "start": 0, "end": 5,
+      "image": "REPLACE: scene prompt (no text/UI: image models invent garbled text)",
+      "caption_hint": "Short chip label shown at the top",
+      "animate": false,
+      "sfx": {"at": 0.2, "prompt": "soft keyboard typing burst, short"}
+    },
+    {
+      "id": "s2", "start": 5, "end": 29.5,
+      "image": "REPLACE: scene prompt",
+      "caption_hint": "Second chip label",
+      "animate": true,
+      "sfx": {"at": 5.0, "prompt": "short digital whoosh transition"}
+    }
+  ],
+  "hook": {"text": "REPLACE: the question the Short answers?", "start": 0.0, "end": 3.6, "highlight": ["keyword1", "keyword2"]},
+  "callouts": [
+    {
+      "id": "proof1", "image": "assets/images/REPLACE.png", "aspect": [658, 1376],
+      "start": 3.7, "end": 8.8, "x": 190, "y": 260, "width": 700,
+      "targets": [
+        {"at": 4.3, "label": "what the arrow points at", "arrowX": 770, "arrowY": 1036, "boxX": 204, "boxW": 672, "boxY": 1010, "boxH": 58}
+      ],
+      "_help": "image + aspect [w,h]; x,y,width place it on the 1080x1920 canvas; each target moves the arrow+box (arrowScale optional); several targets = arrow glides between them."
+    }
+  ],
+  "banner": {"start": 21.0, "end": 24.3, "question": "Why bother?", "answer": "BIG CLAIM", "sub": "than the alternative", "source": "where the claim comes from"},
+  "formula": {
+    "start": 24.4, "end": 29.5,
+    "terms": [{"t": "Ingredient A", "at": 24.6}, {"t": "Ingredient B", "at": 25.0}],
+    "result": {"t": "Result", "at": 26.0},
+    "cta": {"t": "Save this formula", "at": 27.0}
+  },
+  "jev": null,
+  "_jev_help": "Optional custom scene: remotion/src/JevSketch.tsx is a hand-drawn diagram example. Set {\"start\":..,\"end\":..} to show it, or null to skip. Copy it as a pattern for your own diagram."
+}

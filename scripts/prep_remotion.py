@@ -10,11 +10,11 @@ PUB.mkdir(parents=True, exist_ok=True)
 
 sb = json.loads((ROOT / "storyboard.json").read_text())
 words = [{"text": w["word"].strip(), "start": round(w["start"], 2), "end": round(w["end"], 2)}
-         for s in json.loads((B / "whisper_words/ZOOM0022.16k.json").read_text())["segments"]
+         for s in json.loads((ROOT / sb["words_json"]).read_text())["segments"]
          for w in s["words"]]
-# Whisper's word-timestamp pass dropped the final word; the segment pass heard it at 25.4-26.2s.
-if words[-1]["text"] == "using":
-    words.append({"text": "DeepSeek", "start": 25.6, "end": 26.3})
+for patch in sb.get("word_patches", []):       # re-insert words Whisper's word pass dropped
+    if words and words[-1]["text"] == patch["after"]:
+        words.append({"text": patch["text"], "start": patch["start"], "end": patch["end"]})
 
 def put(src: Path, name: str):
     if src.exists():
@@ -41,9 +41,13 @@ for s in sb["shots"]:
 callouts = []
 for c in sb.get("callouts", []):
     c = dict(c); c["image"] = put(ROOT / c["image"], f"callout_{c['id']}" + Path(c["image"]).suffix); callouts.append(c)
-voice = put(ROOT / sb["voiceover"], "voice.wav")
+# Clean the noisy room recording: remove rumble, light denoise, normalise to ~-14 LUFS so music/SFX sit under it.
+subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(ROOT / sb["voiceover"]),
+                "-af", "highpass=f=90,afftdn=nf=-28,loudnorm=I=-14:TP=-3:LRA=7",
+                "-ar", "48000", str(PUB / "voice.wav")], check=True)
+voice = "voice.wav"
 data = {"duration": sb["duration"], "voice": voice, "music": put(B / "music.wav", "music.wav"),
-        "callouts": callouts, "hook": sb.get("hook"), "formula": sb.get("formula"), "jev": sb.get("jev"), "words": words, "shots": shots}
+        "callouts": callouts, "hook": sb.get("hook"), "banner": sb.get("banner"), "formula": sb.get("formula"), "jev": sb.get("jev"), "words": words, "shots": shots}
 (PUB / "data.json").write_text(json.dumps(data, indent=2))
 print(f"{len(words)} words, {sum(1 for s in shots if s['image'])}/{len(shots)} images, "
       f"music={'yes' if data['music'] else 'no'}")

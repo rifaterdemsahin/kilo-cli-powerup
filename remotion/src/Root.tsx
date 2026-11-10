@@ -1,6 +1,6 @@
 import {Composition} from 'remotion';
 import {Short} from './Short';
-import data from '../public/data.json';
+import {data} from './data';
 
 export const FPS = 30;
 

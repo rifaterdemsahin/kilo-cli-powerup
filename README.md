@@ -28,7 +28,8 @@ build/short.mp4   (1080x1920, 29.5 s)
 5. **Callouts** (`callouts` in `storyboard.json`): your screenshots (`assets/images/`) with an animated arrow: the status screen -> LSP (4.8-8.8 s), `indexing.jpg` -> the indexing icon (8.8-10.8 s). A pencil-sketch **JEV** diagram, drawn in Remotion (`JevSketch.tsx`), plays at 12.4-17.9 s.
 6. **Hook + formula**: a question card opens the Short (`hook`) and the formula closes it (`formula`), both in `storyboard.json`. Total length 29.5 s.
 7. **Render** with Remotion. Subtitles are word-level: phrases spring in, the active word pops cyan, keywords are violet.
-8. **Review** in `npm run studio`, then publish `build/short.mp4`.
+8. **Sanity check**: `SANITY_CHECK.md` (hook, delivery, customer value) lists what was fixed and what still needs you.
+9. **Review** in `npm run studio`, then publish `build/short.mp4`.
 
 Quick run:
 
@@ -38,6 +39,15 @@ scripts/run.sh python3 scripts/generate.py
 python3 scripts/prep_remotion.py
 cd remotion && npm install && npm run render     # or: npm run studio
 ```
+
+## Build another Short like this
+
+```bash
+scripts/new_project.sh ~/projects/my-next-short "My Next Short"
+```
+
+Copies the engine (`scripts/`, `remotion/`), a blank `storyboard.json`, and README / SANITY_CHECK / DECISIONS templates from `template/`.
+Recipe and pitfalls: [docs/PLAYBOOK.md](docs/PLAYBOOK.md). How this one was made, step by step: [docs/BUILD_LOG.md](docs/BUILD_LOG.md).
 
 ## The Short
 
@@ -104,5 +114,10 @@ scripts/prep_remotion.py  assets + word timings -> remotion/public/data.json
 scripts/assemble.py    ffmpeg-only fallback renderer
 remotion/              Remotion project (Short.tsx = scenes + animated subtitles)
 DECISIONS.md           all decisions and rationale
+SANITY_CHECK.md        hook / delivery / customer-value review + open items
+docs/BUILD_LOG.md      everything done to build this, in order
+docs/PLAYBOOK.md       reusable recipe + lessons
+template/              starting files for new projects
+scripts/new_project.sh scaffold a new project from this one
 assets/transcript/     transcript + captions
 ```

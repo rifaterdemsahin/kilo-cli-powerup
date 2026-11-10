@@ -55,7 +55,7 @@ def main():
     sb = json.loads((ROOT / "storyboard.json").read_text())
     total = sb["duration"]
     voice = ROOT / sb["voiceover"]
-    srt = ROOT / "assets/transcript/ZOOM0022.srt"
+    srt = ROOT / sb["transcript_srt"]
     if not voice.exists():
         sys.exit(f"missing {voice} (copy ZOOM0022.WAV from the SD card, see README)")
 

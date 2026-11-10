@@ -10,12 +10,23 @@
         658,
         1376
       ],
-      "start": 4.8,
+      "start": 3.7,
       "end": 8.8,
       "x": 190,
       "y": 260,
       "width": 700,
       "targets": [
+        {
+          "at": 4.3,
+          "label": "DeepSeek $0.00",
+          "arrowX": 940,
+          "arrowY": 1036,
+          "boxX": 204,
+          "boxW": 672,
+          "boxY": 1010,
+          "boxH": 58,
+          "arrowScale": 0.55
+        },
         {
           "at": 7.2,
           "label": "LSP",
@@ -58,11 +69,19 @@
   "hook": {
     "text": "How can you make DeepSeek work as good as a frontier CLI?",
     "start": 0.0,
-    "end": 4.5,
+    "end": 3.6,
     "highlight": [
       "DeepSeek",
       "frontier"
     ]
+  },
+  "banner": {
+    "start": 21.0,
+    "end": 24.3,
+    "question": "Why go through all this hassle?",
+    "answer": "10x less cost",
+    "sub": "than a frontier model setup",
+    "source": "claim supplied by the user, not measured in this project"
   },
   "formula": {
     "start": 24.4,
@@ -90,8 +109,12 @@
       }
     ],
     "result": {
-      "t": "Frontier-level results",
+      "t": "Frontier-like results",
       "at": 27.0
+    },
+    "cta": {
+      "t": "Save this formula",
+      "at": 28.0
     }
   },
   "jev": {

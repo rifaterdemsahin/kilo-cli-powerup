@@ -68,6 +68,17 @@ Every non-obvious choice made while building this Short, and why.
 | Last shot's clip is 5 s but the shot is now 6.5 s: last video frame is frozen, not looped | A loop would visibly jump; a freeze under a dark panel is invisible. |
 | Music fades out over the final 1.5 s and loops under the extra time | The 27 s music bed is shorter than 29.5 s. |
 
+## Banner (0:21) and sanity-check fixes
+| Decision | Why |
+|---|---|
+| Banner 21.0-24.3 s: "Why go through all this hassle?" -> "10x less cost" -> "than a frontier model setup" | User request. It answers the hassle objection right before the formula. The number is the user's claim and is flagged in `storyboard.json` (`banner.source`) and `SANITY_CHECK.md` (V3). |
+| Formula result softened to "Frontier-like results"; CTA "Save this formula" added | No benchmark is shown, so "-level" overclaimed; the CTA promises nothing that doesn't exist. |
+| Voice cleaned in `prep_remotion.py` (highpass 90, denoise, loudnorm -14 LUFS, TP -3) | The Remotion version played the raw noisy recording. Final mix -15.3 LUFS, TP -1.3 dBFS. |
+| Music ducks to 6% under speech, 20% in gaps, fade-out 1.5 s; SFX 60% -> 30% | Keeps the speech intelligible; SFX peaked at 0 dBFS. |
+| Callout 1 starts at 3.7 s (was 4.8) with a proof highlight on the DeepSeek/$0.00 row first, then LSP | Narration says "as you see here" at 1.2 s; real UI should appear as early as the hook allows, and the $0.00 cost is the strongest proof. |
+| Regenerated shot s4 without a UI/board scene; global style forbids text | The first s4 had garbled pseudo-text visible behind the banner. |
+| Engine made generic (typed `data.ts`, no hard-coded filenames, optional scenes) and `template/` + `scripts/new_project.sh` added | User asked for a template to build similar projects. One copy of the engine; the scaffold copies it, so improvements propagate. |
+
 ## Secrets
 | Decision | Why |
 |---|---|

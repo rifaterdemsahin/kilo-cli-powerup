@@ -1,6 +1,6 @@
 import React from 'react';
 import {AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig} from 'remotion';
-import data from '../public/data.json';
+import {data} from './data';
 
 // Hand-drawn pencil-style vertical flow, redrawn from assets/images/jev.webp:
 // server -> padlock -> gears (validate) -> blue (valid) / red (error) -> JSON document.

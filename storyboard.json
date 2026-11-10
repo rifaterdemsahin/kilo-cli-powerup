@@ -1,6 +1,6 @@
 {
   "title": "Kilo CLI power-up",
-  "duration": 29.5,
+  "duration": 29.6,
   "voiceover": "assets/audio/ZOOM0022.WAV",
   "style": "dark terminal aesthetic, neon cyan and violet glow, clean vector-like 3D, vertical 9:16, no text, no logos, absolutely no text, letters, numbers or UI",
   "music": {
@@ -56,7 +56,7 @@
     {
       "id": "s5",
       "start": 23,
-      "end": 29.5,
+      "end": 29.6,
       "image": "a friendly glowing whale made of circuitry diving through a sea of data, frontier AI model concept",
       "caption_hint": "Frontier models with DeepSeek",
       "animate": true,
@@ -68,8 +68,8 @@
   ],
   "jev": {
     "reference": "assets/images/jev.webp",
-    "start": 12.4,
-    "end": 17.9,
+    "start": 12.5,
+    "end": 18.0,
     "renderer": "remotion/src/JevSketch.tsx"
   },
   "callouts": [
@@ -80,14 +80,14 @@
         658,
         1376
       ],
-      "start": 3.7,
-      "end": 8.8,
+      "start": 3.9,
+      "end": 8.9,
       "x": 190,
       "y": 260,
       "width": 700,
       "targets": [
         {
-          "at": 4.3,
+          "at": 4.4,
           "label": "DeepSeek $0.00",
           "arrowX": 940,
           "arrowY": 1036,
@@ -98,7 +98,7 @@
           "arrowScale": 0.55
         },
         {
-          "at": 7.2,
+          "at": 7.3,
           "label": "LSP",
           "arrowX": 770,
           "arrowY": 1210,
@@ -116,14 +116,14 @@
         690,
         338
       ],
-      "start": 8.8,
-      "end": 10.8,
+      "start": 8.9,
+      "end": 10.9,
       "x": 60,
       "y": 640,
       "width": 960,
       "targets": [
         {
-          "at": 9.1,
+          "at": 9.2,
           "label": "Indexing",
           "arrowX": 770,
           "arrowY": 930,
@@ -137,46 +137,47 @@
     }
   ],
   "hook": {
+    "teaser": "5 ingredients.|1 cheap model.",
     "text": "How can you make DeepSeek work as good as a frontier CLI?",
-    "start": 0.0,
-    "end": 3.6,
+    "start": 1.0,
+    "end": 3.8,
     "highlight": [
       "DeepSeek",
       "frontier"
     ]
   },
   "formula": {
-    "start": 24.4,
-    "end": 29.5,
+    "start": 24.5,
+    "end": 29.6,
     "terms": [
       {
         "t": "Kilo CLI",
-        "at": 24.6
+        "at": 24.7
       },
       {
         "t": "LSP",
-        "at": 25.0
+        "at": 25.1
       },
       {
         "t": "Indexing",
-        "at": 25.4
+        "at": 25.5
       },
       {
         "t": "JEV",
-        "at": 25.8
+        "at": 25.9
       },
       {
         "t": "DeepSeek",
-        "at": 26.2
+        "at": 26.3
       }
     ],
     "result": {
       "t": "Frontier-like results",
-      "at": 27.0
+      "at": 27.1
     },
     "cta": {
       "t": "Save this formula",
-      "at": 28.0
+      "at": 28.1
     }
   },
   "words_json": "assets/transcript/ZOOM0022.words.json",
@@ -204,5 +205,10 @@
     "accent": "= FRONTIER?",
     "foot": "THE FORMULA",
     "shot": "s5"
+  },
+  "voice_trim": {
+    "from": 3.0,
+    "at": 3.1,
+    "why": "drop the filler opener; intro before the first spoken word grows from 1.2 s to 3.2 s"
   }
 }

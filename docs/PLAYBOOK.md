@@ -10,7 +10,7 @@ The reusable recipe, with the mistakes this project already paid for. Start a ne
 - Get word timestamps for animated captions. The word pass can drop the last word -> `word_patches`.
 
 ## 2. Story
-- Hook = a question the Short answers, on screen from frame 0, <= ~12 words.
+- Hook = a curiosity trigger on frame 0 (an open loop that is *true*, e.g. "5 ingredients. 1 cheap model.") + the question the Short answers (<= ~12 words), typed out and held ~1 s. Give it ~3 s before the first spoken word; if the recording opens with filler, trim it (`voice_trim`) instead of letting the Short grow past the limit.
 - Close the loop with a payoff (formula / result) and a safe CTA.
 - Keep total length under the limit; extend only for the payoff (voice ended 26.3 s, video 29.5 s).
 - Use the author's real screenshots as proof wherever possible; use AI imagery only as mood.

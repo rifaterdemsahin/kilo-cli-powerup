@@ -16,6 +16,12 @@ for patch in sb.get("word_patches", []):       # re-insert words Whisper's word 
     if words and words[-1]["text"] == patch["after"]:
         words.append({"text": patch["text"], "start": patch["start"], "end": patch["end"]})
 
+trim = sb.get("voice_trim")
+if trim:   # captions follow the trimmed voice: drop skipped words, shift the rest to the timeline
+    off = trim["at"] - trim["from"]
+    words = [{**w, "start": round(w["start"] + off, 2), "end": round(w["end"] + off, 2)}
+             for w in words if w["end"] > trim["from"]]
+
 def put(src: Path, name: str):
     if src.exists():
         shutil.copy(src, PUB / name)
@@ -52,7 +58,7 @@ if sb.get("thumbnail"):
 
 voice = "voice.wav"
 data = {"duration": sb["duration"], "voice": voice, "music": put(B / "music.wav", "music.wav"),
-        "callouts": callouts, "hook": sb.get("hook"), "thumbnail": thumb, "banner": sb.get("banner"), "formula": sb.get("formula"), "jev": sb.get("jev"), "words": words, "shots": shots}
+        "callouts": callouts, "hook": sb.get("hook"), "voiceTrim": trim, "thumbnail": thumb, "banner": sb.get("banner"), "formula": sb.get("formula"), "jev": sb.get("jev"), "words": words, "shots": shots}
 (PUB / "data.json").write_text(json.dumps(data, indent=2))
 print(f"{len(words)} words, {sum(1 for s in shots if s['image'])}/{len(shots)} images, "
       f"music={'yes' if data['music'] else 'no'}")

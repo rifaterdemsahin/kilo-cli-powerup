@@ -1,6 +1,6 @@
 # Sanity check: Kilo CLI + DeepSeek Short
 
-Reviewed against the final render (`build/short.mp4`, 29.5 s, 1080x1920). Method: stills of every scene, ffmpeg
+Reviewed against the final render (`build/short.mp4`, 29.6 s, 1080x1920). Method: stills of every scene, ffmpeg
 loudness measurements, and reading the transcript and storyboard. **Not done: I have not watched or listened to the
 whole video in real time.** Please do one playback pass on a phone before publishing.
 
@@ -8,8 +8,8 @@ whole video in real time.** Please do one playback pass on a phone before publis
 
 | Area | Verdict | One line |
 |---|---|---|
-| Hook | **Good, one wording issue open** | Question is on screen from frame 0; says "frontier CLI" while the answer is about frontier *models*. |
-| Delivery | **Fixed, two items need you** | Audio and visuals had real flaws (now fixed); the voice opener and one caption word can only be fixed by you. |
+| Hook | **Good, one wording issue open; intro lengthened** | Question is on screen from frame 0; says "frontier CLI" while the answer is about frontier *models*. |
+| Delivery | **Fixed, one item needs you** | Audio and visuals had real flaws (now fixed, including the filler opener); one caption word can only be fixed by you. |
 | Customer value | **Partial** | Strong proof and a clear formula, but two claims are unproven and the viewer gets ingredients, not steps. |
 
 ## Findings
@@ -19,7 +19,8 @@ whole video in real time.** Please do one playback pass on a phone before publis
 | H1 | Hook | Question is visible from 0.0 s, typewriter reveal, key words coloured, gone by 3.6 s. | - | Pass | stills at 1.5 s and 3.3 s |
 | H2 | Hook | Hook says "as good as a **frontier CLI**", but the narration and formula are about frontier **models**. Mixed nouns weaken the promise. Suggested: "How can you make DeepSeek work as good as a frontier model in Kilo CLI?" (longer) or keep as is. | Low | **Open (your call)**, kept your wording | `storyboard.json` -> hook |
 | H3 | Hook | Real proof used to appear only at 4.8 s, after the hook; the AI neon image stood in for "as you see here". Callout now starts at 3.7 s, right when the voice says "Kilo CLI". | Medium | **Fixed** | callout start 4.8 -> 3.7 |
-| H4 | Hook | The first words are "As you see here though, ..." (filler that refers to a screen not yet shown). Can't be fixed in editing without altering your recording. Options: re-record with "I'm using Kilo CLI and I'm going to enable LSP and indexing", or trim the first ~1.9 s and re-time the storyboard. | Medium | **Open (needs you)** | transcript 1.2-3.0 s |
+| H4 | Hook | The first words were "As you see here though, ..." (filler that referred to a screen not yet shown). Now trimmed: the voice starts at "I'm using Kilo CLI" (`voice_trim` in `storyboard.json`; captions follow). | Medium | **Fixed** | transcript 1.2-3.0 s dropped |
+| H6 | Hook | Intro before the first spoken word lengthened from 1.2 s to **3.2 s** (net +0.1 s overall, because the filler opener was cut). Frame 0 now carries a curiosity trigger ("5 ingredients. 1 cheap model.": true, the formula has 5 parts), then the question types out (0.12 s/word) and holds until 3.8 s. Open loop is closed by the formula. "Cheap" leans on the cost claim in V3. | Medium | **Added** | stills at 0.4 s and 3.3 s; first 3.1 s has no voice (music + SFX only, max -8.3 dB) |
 | H5 | Hook | Payoff closes the loop: hook asks, formula answers at the end ("Save this formula" CTA). | - | Pass | formula still |
 | D1 | Delivery | Voiceover was played raw (noisy room recording) in the Remotion version. Now: highpass 90 Hz, denoise, loudnorm -14 LUFS / TP -3. | High | **Fixed** | `prep_remotion.py` |
 | D2 | Delivery | Music sat at a constant 15% under the voice. Now ducks to 6% while words are spoken, swells to 20% in gaps, fades out over the last 1.5 s. | Medium | **Fixed** | `Short.tsx` |
@@ -31,8 +32,8 @@ whole video in real time.** Please do one playback pass on a phone before publis
 | D8 | Delivery | Caption "That is the critical part **in** the game" is probably "**of** the game" (Whisper small, noisy audio). Not changed because I can't tell what you said. | Low | **Open (needs you)** | `assets/transcript/ZOOM0022.srt` |
 | D9 | Delivery | Last word "DeepSeek" was dropped by the word-timestamp pass; re-inserted from the segment pass (timing 25.6-26.3 s is approximate). | Low | Fixed (documented) | `word_patches` in storyboard |
 | D10 | Delivery | Safe zones: chips at y 150-240; captions bottom margin 330 px; cards between y 300 and 1330. Clear of the Shorts UI as far as I know the layout. | - | Pass (not tested in the app) | layout constants |
-| D11 | Delivery | Pacing: hook 0-3.6, real UI + proof 3.7-8.8, indexing 8.8-10.8, scene 10.8-12.4, JEV sketch 12.4-17.9, scene 18-21, cost banner 21-24.3, formula 24.4-29.5. At most one full-screen card at a time. Banner and formula are 0.1 s apart; both are readable (3.3 s and 5.1 s). | - | Pass | timeline |
-| D12 | Delivery | Technical: 29.5 s (limit 30), 1080x1920, H.264 + AAC, 13.4 MB. | - | Pass | `ffprobe` |
+| D11 | Delivery | Pacing: hook 0-3.8, real UI + proof 3.9-8.9, indexing 8.9-10.9, scene 10.9-12.5, JEV sketch 12.5-18.0, scene 18-21, cost banner 21-24.3, formula 24.4-29.5. At most one full-screen card at a time. Banner and formula are 0.1 s apart; both are readable (3.3 s and 5.1 s). | - | Pass | timeline |
+| D12 | Delivery | Technical: 29.6 s (limit 30), 1080x1920, H.264 + AAC, 13.4 MB. | - | Pass | `ffprobe` |
 | V1 | Value | **Who/what:** developers who want frontier-quality agentic coding at a fraction of the cost. Promise: how to get DeepSeek to perform in Kilo CLI. | - | Pass | |
 | V2 | Value | Real proof from your own screen: DeepSeek V4.1 Flash, **$0.00** cost, 94.2% cache rate, 33.9 tokens/s. Now explicitly highlighted (arrow on the model row at 4.3 s). | - | **Added** | status screenshot |
 | V3 | Value | "**10x less cost** than a frontier model setup" (0:21) is a claim **you supplied**; the Short shows no comparison. Viewers will ask for the maths. Suggest a pinned comment with the two prices per 1M tokens, or "up to 10x" if it varies. Stored in `storyboard.json` -> banner.source as "user claim". | High | **Open (needs you)** | |
@@ -43,7 +44,7 @@ whole video in real time.** Please do one playback pass on a phone before publis
 
 ## Unverified claims (you must confirm)
 
-1. "10x less cost than a frontier model setup": your number, not measured here.
+1. "10x less cost than a frontier model setup" (and the word "cheap" in the opening teaser): your claim, not measured here.
 2. "Frontier-like results": no benchmark in the Short.
 3. JEV = JSON extraction/validation: my interpretation of your sketch.
 4. "In the game" vs "of the game": transcript guess.
@@ -57,4 +58,4 @@ whole video in real time.** Please do one playback pass on a phone before publis
 
 ## Before you publish
 
-Play it end to end on a phone; resolve H4, D8, V3, V5, V6; re-run `python3 scripts/prep_remotion.py && (cd remotion && npm run render)`.
+Play it end to end on a phone; resolve D8, V3, V5, V6; re-run `python3 scripts/prep_remotion.py && (cd remotion && npm run render)`.

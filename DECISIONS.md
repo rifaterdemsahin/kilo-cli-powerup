@@ -90,6 +90,15 @@ Every non-obvious choice made while building this Short, and why.
 | Thumbnail is a Remotion still, 1080x1920, text "KILO CLI / DEEPSEEK = FRONTIER? / THE FORMULA" (no cost claim) | Matches the Short's look and the hook question; the "?" keeps it honest. |
 | Character counters (title 100, description 5000, tags 500) | YouTube limits. |
 
+## Longer intro + curiosity trigger
+| Decision | Why |
+|---|---|
+| Intro before the first spoken word: 1.2 s -> 3.2 s (+2.0 s) | User request. Gives the hook time to land before anyone talks. |
+| Trimmed the voice's filler opener "As you see here though," (`voice_trim`: play source from 3.0 s, place at 3.1 s; captions shifted/dropped to match) | Keeps the total at 29.6 s (<30) and fixes SANITY_CHECK H4. It would otherwise have meant 31.5 s. |
+| Curiosity trigger on frame 0: "5 ingredients. 1 cheap model." slamming in with a short glitch, then the question types out below it (0.12 s/word, held to 3.8 s) | An open loop (what are the 5?) plus the question; both are answered by the formula at the end. "5" is factual (formula has 5 terms); "cheap" depends on the unproven cost claim, so it is listed in SANITY_CHECK. |
+| Teaser and question are separate pieces (`hook.teaser` with `|` line breaks, `hook.text`) | Teaser optional in the template; the question card works alone. |
+| Everything voice-timed shifted by +0.1 s (callouts, JEV sketch, formula); banner stays at 0:21 as the user asked | The trim moves the first word from 1.18 s to 3.2 s, and "I'm" from 3.1 to 3.2. |
+
 ## Secrets
 | Decision | Why |
 |---|---|

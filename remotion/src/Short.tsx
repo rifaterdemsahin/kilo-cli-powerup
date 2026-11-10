@@ -185,8 +185,9 @@ const Callout: React.FC<{c: CalloutCfg}> = ({c}) => {
   );
 };
 
-// ---------- hook question at the start ----------
-// Typewriter question in a speech-bubble card; key words are coloured.
+// ---------- hook at the start ----------
+// 1) curiosity trigger (teaser) slams in on frame 0, 2) the question types itself out in a card.
+// Teaser lines are separated by "|" in storyboard.json -> hook.teaser. Key words are coloured.
 const Hook: React.FC = () => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
@@ -194,30 +195,45 @@ const Hook: React.FC = () => {
   if (!h) return null;
   const t = frame / fps;
   if (t > h.end) return null;
-  const enter = spring({frame, fps, config: {damping: 12}});
   const exit = interpolate(t, [h.end - 0.35, h.end], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const tz = spring({frame, fps, config: {damping: 9, stiffness: 220}});
+  const jitter = t < 0.45 ? Math.sin(frame * 3) * 8 * (1 - t / 0.45) : 0; // quick glitch on arrival
+  const enter = spring({frame: frame - Math.round(h.start * fps), fps, config: {damping: 12}});
   const words = h.text.split(' ');
-  const perWord = 0.17;
+  const perWord = 0.12;
   return (
-    <div style={{
-      position: 'absolute', left: 70, right: 70, top: 330, padding: '46px 52px', borderRadius: 44,
-      background: 'rgba(8,12,28,0.82)', border: `5px solid ${VIOLET}`, boxShadow: `0 0 60px ${VIOLET}99`,
-      opacity: exit * Math.min(1, enter * 1.5), transform: `scale(${0.8 + 0.2 * enter}) rotate(${(1 - enter) * -4}deg)`,
-      fontFamily: 'Helvetica, Arial, sans-serif', fontWeight: 900, fontSize: 84, lineHeight: 1.15, textAlign: 'center',
-    }}>
-      {words.map((w, i) => {
-        const shown = t >= h.start + 0.3 + i * perWord;
-        const hl = h.highlight.some((k) => w.toLowerCase().startsWith(k.toLowerCase()));
-        const pop = shown ? spring({frame: frame - Math.round((h.start + 0.3 + i * perWord) * fps), fps, config: {damping: 10, stiffness: 200}}) : 0;
-        return (
-          <span key={i} style={{
-            display: 'inline-block', marginRight: 18, opacity: shown ? 1 : 0, transform: `scale(${0.6 + 0.4 * pop})`,
-            color: hl ? (w.toLowerCase().startsWith('deep') ? CYAN : VIOLET) : '#fff',
-            textShadow: hl ? `0 0 26px ${hl ? CYAN : VIOLET}` : 'none',
-          }}>{w}</span>
-        );
-      })}
-    </div>
+    <>
+      {h.teaser && (
+        <div style={{
+          position: 'absolute', top: 270, left: 0, right: 0, textAlign: 'center', fontFamily: 'Helvetica, Arial, sans-serif',
+          fontWeight: 900, fontSize: 78, lineHeight: 1.1, color: '#facc15', textTransform: 'uppercase', letterSpacing: 2,
+          opacity: exit * Math.min(1, tz * 1.5), transform: `translateX(${jitter}px) scale(${0.7 + 0.3 * tz})`,
+          textShadow: '0 0 40px #facc15, 0 6px 0 rgba(0,0,0,.7)', WebkitTextStroke: '5px rgba(0,0,0,.8)', paintOrder: 'stroke fill',
+        }}>
+          {h.teaser.split('|').map((line, i) => <div key={i}>{line}</div>)}
+        </div>
+      )}
+      <div style={{
+        position: 'absolute', left: 70, right: 70, top: 500, padding: '46px 52px', borderRadius: 44,
+        background: 'rgba(8,12,28,0.82)', border: `5px solid ${VIOLET}`, boxShadow: `0 0 60px ${VIOLET}99`,
+        opacity: exit * Math.min(1, enter * 1.5), transform: `scale(${0.8 + 0.2 * enter}) rotate(${(1 - enter) * -4}deg)`,
+        fontFamily: 'Helvetica, Arial, sans-serif', fontWeight: 900, fontSize: 84, lineHeight: 1.15, textAlign: 'center',
+      }}>
+        {words.map((w, i) => {
+          const at = h.start + 0.3 + i * perWord;
+          const shown = t >= at;
+          const hl = h.highlight.some((k) => w.toLowerCase().startsWith(k.toLowerCase()));
+          const pop = shown ? spring({frame: frame - Math.round(at * fps), fps, config: {damping: 10, stiffness: 200}}) : 0;
+          return (
+            <span key={i} style={{
+              display: 'inline-block', marginRight: 18, opacity: shown ? 1 : 0, transform: `scale(${0.6 + 0.4 * pop})`,
+              color: hl ? (w.toLowerCase().startsWith('deep') ? CYAN : VIOLET) : '#fff',
+              textShadow: hl ? `0 0 26px ${w.toLowerCase().startsWith('deep') ? CYAN : VIOLET}` : 'none',
+            }}>{w}</span>
+          );
+        })}
+      </div>
+    </>
   );
 };
 
@@ -326,7 +342,11 @@ export const Short: React.FC = () => {
       <Formula />
       <Subtitles />
       <Progress />
-      {data.voice && <Audio src={staticFile(data.voice)} />}
+      {data.voice && (data.voiceTrim ? (
+        <Sequence from={Math.round(data.voiceTrim.at * fps)}>
+          <Audio src={staticFile(data.voice)} startFrom={Math.round(data.voiceTrim.from * fps)} />
+        </Sequence>
+      ) : <Audio src={staticFile(data.voice)} />)}
       {data.music && <Audio src={staticFile(data.music)} loop volume={(f) => {
         const tt = f / fps;
         const speaking = data.words.some((w) => tt >= w.start - 0.15 && tt <= w.end + 0.25);

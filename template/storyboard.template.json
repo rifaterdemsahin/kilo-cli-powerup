@@ -5,6 +5,7 @@
   "voiceover": "assets/audio/REPLACE_ME.WAV",
   "words_json": "assets/transcript/REPLACE_ME.words.json",
   "transcript_srt": "assets/transcript/REPLACE_ME.srt",
+  "voice_trim": {"from": 0.0, "at": 0.0, "why": "optional: play the source audio from `from` seconds, starting at `at` on the timeline; use it to cut a filler opener and to lengthen the intro. Captions follow."},
   "word_patches": [],
   "_word_patches_help": "Whisper's word pass sometimes drops the last word. Example: {\"after\":\"using\",\"text\":\"DeepSeek\",\"start\":25.6,\"end\":26.3}",
   "style": "REPLACE: one consistent look, e.g. dark neon, vertical 9:16, absolutely no text, letters, numbers or UI",
@@ -25,7 +26,7 @@
       "sfx": {"at": 5.0, "prompt": "short digital whoosh transition"}
     }
   ],
-  "hook": {"text": "REPLACE: the question the Short answers?", "start": 0.0, "end": 3.6, "highlight": ["keyword1", "keyword2"]},
+  "hook": {"teaser": "TRUE OPEN LOOP.|SECOND LINE.", "text": "REPLACE: the question the Short answers?", "start": 1.0, "end": 3.8, "highlight": ["keyword1", "keyword2"]},
   "callouts": [
     {
       "id": "proof1", "image": "assets/images/REPLACE.png", "aspect": [658, 1376],

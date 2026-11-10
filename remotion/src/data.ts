@@ -17,7 +17,7 @@ export interface CalloutCfg {
   id: string; image: string | null; aspect: [number, number]; start: number; end: number;
   x: number; y: number; width: number; targets: Target[];
 }
-export interface Hook {text: string; start: number; end: number; highlight: string[]}
+export interface Hook {teaser?: string; text: string; start: number; end: number; highlight: string[]}
 export interface Formula {
   start: number; end: number; terms: {t: string; at: number}[];
   result: {t: string; at: number}; cta?: {t: string; at: number};
@@ -26,7 +26,7 @@ export interface Banner {start: number; end: number; question: string; answer: s
 export interface Thumbnail {chip: string; big: string; accent: string; foot: string; image: string | null}
 export interface Sketch {start: number; end: number}
 export interface ShortData {
-  duration: number; voice: string | null; music: string | null;
+  duration: number; voice: string | null; voiceTrim: {from: number; at: number} | null; music: string | null;
   words: Word[]; shots: Shot[]; callouts: CalloutCfg[];
   hook: Hook | null; formula: Formula | null; banner: Banner | null; jev: Sketch | null; thumbnail: Thumbnail | null;
 }

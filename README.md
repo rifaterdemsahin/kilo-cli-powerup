@@ -1,7 +1,41 @@
 # kilo-cli-powerup
 
 Pipeline that turns a voice recording about **Kilo CLI** into a YouTube Short (9:16, under 30 s):
-local Whisper transcription, cheap fal.ai visuals/animation, music and sound effects, ffmpeg assembly.
+local Whisper transcription, cheap fal.ai visuals/animation/music/SFX, Remotion rendering with animated subtitles.
+See [DECISIONS.md](DECISIONS.md) for every choice and why.
+
+## Flow
+
+```
+SD card ZOOM0022.WAV
+   |  scripts/transcribe.sh        Whisper (local): text + SRT + word timings
+   v
+assets/transcript/*.txt|srt   +   storyboard.json (shots, prompts, SFX cues, music)
+   |  scripts/run.sh python3 scripts/generate.py     fal.ai, key from Azure Key Vault
+   v
+build/  s1..s5.png, s2.mp4, s5.mp4, sN_sfx.wav, music.wav
+   |  scripts/prep_remotion.py     copy assets + write remotion/public/data.json
+   v
+remotion/  (npm run studio | npm run render)   animated word-by-word subtitles
+   v
+build/short.mp4   (1080x1920, 27 s)
+```
+
+1. **Pick the recording**: latest = highest `ZOOM` number (not newest date; the H2N clock resets on battery change).
+2. **Transcribe** locally with Whisper. Silent files produce "Thank you." hallucinations.
+3. **Storyboard**: `storyboard.json` drives everything: shot timings, image prompts, which shots animate, SFX, music.
+4. **Generate** with fal.ai (cheap model, 2 animated shots, rest Ken Burns). Cached, so re-runs are free.
+5. **Render** with Remotion. Subtitles are word-level: phrases spring in, the active word pops cyan, keywords are violet.
+6. **Review** in `npm run studio`, then publish `build/short.mp4`.
+
+Quick run:
+
+```bash
+scripts/transcribe.sh assets/audio/ZOOM0022.WAV small
+scripts/run.sh python3 scripts/generate.py
+python3 scripts/prep_remotion.py
+cd remotion && npm install && npm run render     # or: npm run studio
+```
 
 ## The Short
 
@@ -23,7 +57,7 @@ Transcript: `assets/transcript/ZOOM0022.txt` / `.srt`. The shot list, prompts, S
 
 ## Requirements
 
-`ffmpeg`, `whisper` (openai-whisper), `python3`, `az` (Azure CLI, logged in). Captions are rendered with Pillow (`pip install pillow`) and overlaid, so ffmpeg does not need libass/freetype (Homebrew's build here lacks both).
+`node`/`npm` (Remotion), `ffmpeg`, `whisper` (openai-whisper), `python3`, `az` (Azure CLI, logged in). Captions are rendered with Pillow (`pip install pillow`) and overlaid, so ffmpeg does not need libass/freetype (Homebrew's build here lacks both).
 
 ## Secrets
 
@@ -45,7 +79,8 @@ scripts/run.sh python3 scripts/generate.py --dry-run
 scripts/run.sh python3 scripts/generate.py
 
 # 3. Assemble
-python3 scripts/assemble.py        # -> build/short.mp4
+python3 scripts/prep_remotion.py && (cd remotion && npm install && npm run render)   # -> build/short.mp4
+# fallback without Node: python3 scripts/assemble.py
 
 open -a "Google Chrome" build/short.mp4
 ```
@@ -63,6 +98,9 @@ storyboard.json        shots, prompts, SFX cues, music
 scripts/run.sh         inject FAL_KEY from Azure Key Vault
 scripts/transcribe.sh  clean audio + Whisper
 scripts/generate.py    fal.ai images / video / music / sfx
-scripts/assemble.py    ffmpeg: clips + captions + audio mix
+scripts/prep_remotion.py  assets + word timings -> remotion/public/data.json
+scripts/assemble.py    ffmpeg-only fallback renderer
+remotion/              Remotion project (Short.tsx = scenes + animated subtitles)
+DECISIONS.md           all decisions and rationale
 assets/transcript/     transcript + captions
 ```

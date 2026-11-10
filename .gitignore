@@ -7,3 +7,6 @@ assets/audio/
 .env.*
 __pycache__/
 .DS_Store
+node_modules/
+remotion/public/*
+!remotion/public/data.json

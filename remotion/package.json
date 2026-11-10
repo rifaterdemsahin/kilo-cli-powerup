@@ -1,0 +1,19 @@
+{
+  "name": "kilo-cli-short",
+  "private": true,
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "render": "remotion render src/index.ts Short ../build/short.mp4",
+    "still": "remotion still src/index.ts Short ../build/frame.png --frame=150"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.542",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "remotion": "4.0.542"
+  },
+  "devDependencies": {
+    "@types/react": "19.0.0",
+    "typescript": "5.8.3"
+  }
+}

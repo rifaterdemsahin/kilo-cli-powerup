@@ -23,11 +23,12 @@ export interface Formula {
   result: {t: string; at: number}; cta?: {t: string; at: number};
 }
 export interface Banner {start: number; end: number; question: string; answer: string; sub: string}
+export interface Thumbnail {chip: string; big: string; accent: string; foot: string; image: string | null}
 export interface Sketch {start: number; end: number}
 export interface ShortData {
   duration: number; voice: string | null; music: string | null;
   words: Word[]; shots: Shot[]; callouts: CalloutCfg[];
-  hook: Hook | null; formula: Formula | null; banner: Banner | null; jev: Sketch | null;
+  hook: Hook | null; formula: Formula | null; banner: Banner | null; jev: Sketch | null; thumbnail: Thumbnail | null;
 }
 
 export const data = raw as unknown as ShortData;

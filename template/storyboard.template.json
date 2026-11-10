@@ -43,6 +43,7 @@
     "result": {"t": "Result", "at": 26.0},
     "cta": {"t": "Save this formula", "at": 27.0}
   },
+  "thumbnail": {"chip": "TOPIC", "big": "BIG WORD", "accent": "= PROMISE?", "foot": "THE FORMULA", "shot": "s1", "_help": "npm run thumb in remotion/ writes assets/thumbnail.jpg; shot = which generated image is the background. Keep unproven claims off it."},
   "jev": null,
   "_jev_help": "Optional custom scene: remotion/src/JevSketch.tsx is a hand-drawn diagram example. Set {\"start\":..,\"end\":..} to show it, or null to skip. Copy it as a pattern for your own diagram."
 }

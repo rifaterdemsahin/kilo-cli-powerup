@@ -75,6 +75,13 @@
       "frontier"
     ]
   },
+  "thumbnail": {
+    "chip": "KILO CLI",
+    "big": "DEEPSEEK",
+    "accent": "= FRONTIER?",
+    "foot": "THE FORMULA",
+    "image": "s5.png"
+  },
   "banner": {
     "start": 21.0,
     "end": 24.3,

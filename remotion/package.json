@@ -4,7 +4,8 @@
   "scripts": {
     "studio": "remotion studio src/index.ts",
     "render": "remotion render src/index.ts Short ../build/short.mp4",
-    "still": "remotion still src/index.ts Short ../build/frame.png --frame=150"
+    "still": "remotion still src/index.ts Short ../build/frame.png --frame=150",
+    "thumb": "remotion still src/index.ts Thumbnail ../assets/thumbnail.jpg --image-format=jpeg --jpeg-quality=92"
   },
   "dependencies": {
     "@remotion/cli": "4.0.542",

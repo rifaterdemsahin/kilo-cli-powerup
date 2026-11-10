@@ -29,7 +29,8 @@ build/short.mp4   (1080x1920, 29.5 s)
 6. **Hook + formula**: a question card opens the Short (`hook`) and the formula closes it (`formula`), both in `storyboard.json`. Total length 29.5 s.
 7. **Render** with Remotion. Subtitles are word-level: phrases spring in, the active word pops cyan, keywords are violet.
 8. **Sanity check**: `SANITY_CHECK.md` (hook, delivery, customer value) lists what was fixed and what still needs you.
-9. **Review** in `npm run studio`, then publish `build/short.mp4`.
+9. **Publish kit**: open `index.html` (titles, description, hashtags, tags, pinned comment with copy buttons, thumbnail from `assets/thumbnail.jpg`; `cd remotion && npm run thumb` regenerates it).
+10. **Review** in `npm run studio`, then publish `build/short.mp4`.
 
 Quick run:
 
@@ -118,6 +119,7 @@ SANITY_CHECK.md        hook / delivery / customer-value review + open items
 docs/BUILD_LOG.md      everything done to build this, in order
 docs/PLAYBOOK.md       reusable recipe + lessons
 template/              starting files for new projects
+index.html             publish kit: thumbnail + title/description with copy buttons
 scripts/new_project.sh scaffold a new project from this one
 assets/transcript/     transcript + captions
 ```

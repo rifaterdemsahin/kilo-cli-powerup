@@ -197,5 +197,12 @@
     "answer": "10x less cost",
     "sub": "than a frontier model setup",
     "source": "claim supplied by the user, not measured in this project"
+  },
+  "thumbnail": {
+    "chip": "KILO CLI",
+    "big": "DEEPSEEK",
+    "accent": "= FRONTIER?",
+    "foot": "THE FORMULA",
+    "shot": "s5"
   }
 }

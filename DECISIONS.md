@@ -79,6 +79,17 @@ Every non-obvious choice made while building this Short, and why.
 | Regenerated shot s4 without a UI/board scene; global style forbids text | The first s4 had garbled pseudo-text visible behind the banner. |
 | Engine made generic (typed `data.ts`, no hard-coded filenames, optional scenes) and `template/` + `scripts/new_project.sh` added | User asked for a template to build similar projects. One copy of the engine; the scaffold copies it, so improvements propagate. |
 
+## Publish kit and thumbnail
+| Decision | Why |
+|---|---|
+| `index.html` is a single self-contained file (inline CSS/JS, light/dark, mobile layout) | Opens by double-click or from any static server; no build step. |
+| Every text box is editable and remembered (localStorage, guarded with try/catch); copy copies the *current* text | The description and pinned comment need the author's own steps and numbers before posting. |
+| Copy uses `navigator.clipboard` in secure contexts, with a hidden-textarea `execCommand` fallback for `file://` | Works both from `file://` and `http://localhost`. |
+| Titles avoid "10x cheaper" except one option explicitly marked "only once proven" | The claim is unproven (SANITY_CHECK V3). |
+| Description and pinned comment keep visible `TODO` markers for the steps and the price comparison | I don't invent setup steps or numbers; a TODO is better than a silent gap. |
+| Thumbnail is a Remotion still, 1080x1920, text "KILO CLI / DEEPSEEK = FRONTIER? / THE FORMULA" (no cost claim) | Matches the Short's look and the hook question; the "?" keeps it honest. |
+| Character counters (title 100, description 5000, tags 500) | YouTube limits. |
+
 ## Secrets
 | Decision | Why |
 |---|---|

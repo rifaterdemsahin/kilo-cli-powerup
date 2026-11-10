@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Publish Kit</title>
+<style>
+  :root {
+    --bg: #f6f7fb; --card: #ffffff; --ink: #151827; --muted: #5d6478; --line: #dfe3ee;
+    --accent: #0e7490; --accent-ink: #ffffff; --ok: #15803d; --warn-bg: #fff7e0; --warn-line: #e3b505;
+    --field: #f1f3f9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0d1020; --card: #161a2e; --ink: #eef0fa; --muted: #9aa3bd; --line: #2a3050;
+      --accent: #22d3ee; --accent-ink: #06121a; --ok: #4ade80; --warn-bg: #2a2410; --warn-line: #a88400;
+      --field: #0f1327;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+  main { max-width: 1040px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { font-size: 1.8rem; margin: 0 0 4px; }
+  h2 { font-size: 1.15rem; margin: 0 0 12px; }
+  .sub { color: var(--muted); margin: 0 0 20px; }
+  .grid { display: grid; grid-template-columns: 300px 1fr; gap: 20px; align-items: start; }
+  @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 18px; }
+  .thumb { width: 100%; border-radius: 10px; display: block; border: 1px solid var(--line); }
+  .row { display: flex; gap: 10px; align-items: center; margin-top: 12px; flex-wrap: wrap; }
+  button, a.btn { appearance: none; border: 0; border-radius: 10px; padding: 9px 16px; font: inherit; font-weight: 600;
+    cursor: pointer; background: var(--accent); color: var(--accent-ink); text-decoration: none; display: inline-block; }
+  button.ghost, a.btn.ghost { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
+  button.done { background: var(--ok); color: #fff; border-color: var(--ok); }
+  button:focus-visible, a.btn:focus-visible, textarea:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  textarea, input[type=text] { width: 100%; background: var(--field); color: var(--ink); border: 1px solid var(--line);
+    border-radius: 10px; padding: 10px 12px; font: inherit; resize: vertical; }
+  textarea { min-height: 220px; }
+  .opt { display: grid; grid-template-columns: 1fr auto; gap: 8px 10px; align-items: start; margin-bottom: 14px; }
+  .opt .meta { grid-column: 1 / -1; color: var(--muted); font-size: .85rem; margin-top: -4px; }
+  .count { font-variant-numeric: tabular-nums; }
+  .over { color: #c62828; font-weight: 700; }
+  .warn { background: var(--warn-bg); border: 1px solid var(--warn-line); border-radius: 12px; padding: 12px 14px; margin-bottom: 18px; }
+  .warn ul { margin: 6px 0 0 18px; padding: 0; }
+  code { background: var(--field); padding: 1px 6px; border-radius: 6px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .tag { background: var(--field); border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px; font-size: .9rem; }
+  .toast { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); background: #111; color: #fff; padding: 8px 16px;
+    border-radius: 999px; opacity: 0; transition: opacity .2s; pointer-events: none; }
+  .toast.show { opacity: .95; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Publish kit</h1>
+  <p class="sub">{{TITLE}}. Edit any box, then press <strong>Copy</strong>. Edits are remembered in this browser.</p>
+
+  <div class="warn" role="note">
+    <strong>Before you publish</strong> (see <code>SANITY_CHECK.md</code>): replace every TODO below, and keep claims you cannot prove out of titles.
+  </div>
+
+  <div class="grid">
+    <section class="card" aria-labelledby="thumb-h">
+      <h2 id="thumb-h">Thumbnail</h2>
+      <img class="thumb" src="assets/thumbnail.jpg" alt="Thumbnail">
+      <div class="row">
+        <a class="btn" href="assets/thumbnail.jpg" download="thumbnail.jpg">Download</a>
+        <button class="ghost" data-copy-text="assets/thumbnail.jpg">Copy file path</button>
+      </div>
+      <p class="sub" style="margin-top:12px">1080x1920 (9:16). Regenerate with <code>cd remotion &amp;&amp; npm run thumb</code>; text is in <code>storyboard.json</code> &rarr; <code>thumbnail</code>.</p>
+    </section>
+
+    <div>
+      <section class="card" aria-labelledby="title-h">
+        <h2 id="title-h">Title (max 100 characters)</h2>
+        <div id="titles"></div>
+      </section>
+
+      <section class="card" aria-labelledby="desc-h">
+        <h2 id="desc-h">Description</h2>
+        <textarea id="desc" aria-label="Description"></textarea>
+        <div class="row">
+          <button data-copy-from="desc">Copy description</button>
+          <span class="count" id="desc-count"></span>
+          <button class="ghost" id="reset-desc">Reset to default</button>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="hash-h">
+        <h2 id="hash-h">Hashtags</h2>
+        <input type="text" id="hash" aria-label="Hashtags">
+        <div class="row"><button data-copy-from="hash">Copy hashtags</button></div>
+      </section>
+
+      <section class="card" aria-labelledby="tags-h">
+        <h2 id="tags-h">Tags (YouTube "Tags" field, comma separated)</h2>
+        <input type="text" id="tags" aria-label="Tags">
+        <div class="row"><button data-copy-from="tags">Copy tags</button><span class="count" id="tags-count"></span></div>
+      </section>
+
+      <section class="card" aria-labelledby="pin-h">
+        <h2 id="pin-h">Pinned comment</h2>
+        <textarea id="pin" aria-label="Pinned comment" style="min-height:140px"></textarea>
+        <div class="row"><button data-copy-from="pin">Copy comment</button></div>
+      </section>
+
+      <section class="card" aria-labelledby="all-h">
+        <h2 id="all-h">Everything at once</h2>
+        <div class="row">
+          <button id="copy-all">Copy title + description</button>
+          <span class="sub" style="margin:0">Uses the first title and the current description.</span>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite">Copied</div>
+
+<script>
+(function () {
+  var TITLES = [
+    { t: "TODO: title option 1", n: "Direct: says what the viewer gets." },
+    { t: "TODO: title option 2", n: "Short and curiosity-driven; match the thumbnail." },
+    { t: "TODO: title option 3", n: "Mirror the on-screen hook wording." }
+  ];
+
+  var DEFAULTS = {
+    desc: ["TODO: one-line promise", "", "The formula / steps:", "TODO", "", "#Shorts"].join("
+"),
+    hash: "#Shorts",
+    tags: "TODO, comma, separated",
+    pin: ["TODO: the receipts for your claims (numbers, prices, how you measured)."].join("
+")
+  };
+
+  function store(k, v) { try { if (v === undefined) return localStorage.getItem("pk_" + k); localStorage.setItem("pk_" + k, v); } catch (e) { return null; } }
+  var toast = document.getElementById("toast"), tt;
+  function say(msg) { toast.textContent = msg; toast.classList.add("show"); clearTimeout(tt); tt = setTimeout(function () { toast.classList.remove("show"); }, 1400); }
+
+  function copyText(text) {
+    function fallback() {
+      var ta = document.createElement("textarea");
+      ta.value = text; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      var ok = false; try { ok = document.execCommand("copy"); } catch (e) {}
+      document.body.removeChild(ta); return ok;
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text).then(function () { return true; }, function () { return fallback(); });
+    }
+    return Promise.resolve(fallback());
+  }
+  function flash(btn, ok) {
+    var old = btn.dataset.label || btn.textContent; btn.dataset.label = old;
+    btn.textContent = ok ? "Copied ✓" : "Copy failed: select and press Cmd/Ctrl+C";
+    btn.classList.toggle("done", ok);
+    setTimeout(function () { btn.textContent = old; btn.classList.remove("done"); }, 1400);
+    say(ok ? "Copied to clipboard" : "Copy failed");
+  }
+  function bind(btn, getText) {
+    btn.addEventListener("click", function () { copyText(getText()).then(function (ok) { flash(btn, ok); }); });
+  }
+
+  // titles
+  var box = document.getElementById("titles");
+  TITLES.forEach(function (o, i) {
+    var wrap = document.createElement("div"); wrap.className = "opt";
+    var inp = document.createElement("input"); inp.type = "text"; inp.value = store("title" + i) || o.t;
+    inp.setAttribute("aria-label", "Title option " + (i + 1));
+    var btn = document.createElement("button"); btn.textContent = "Copy";
+    var meta = document.createElement("div"); meta.className = "meta";
+    function upd() { var n = inp.value.length; meta.innerHTML = '<span class="count ' + (n > 100 ? "over" : "") + '">' + n + "/100</span> &middot; " + o.n; store("title" + i, inp.value); }
+    inp.addEventListener("input", upd); upd(); bind(btn, function () { return inp.value; });
+    wrap.appendChild(inp); wrap.appendChild(btn); wrap.appendChild(meta); box.appendChild(wrap);
+  });
+
+  // editable fields
+  ["desc", "hash", "tags", "pin"].forEach(function (id) {
+    var el = document.getElementById(id); el.value = store(id) || DEFAULTS[id];
+    el.addEventListener("input", function () { store(id, el.value); counts(); });
+  });
+  function counts() {
+    var d = document.getElementById("desc").value.length;
+    document.getElementById("desc-count").innerHTML = '<span class="' + (d > 5000 ? "over" : "") + '">' + d + "/5000</span>";
+    var t = document.getElementById("tags").value.length;
+    document.getElementById("tags-count").innerHTML = '<span class="' + (t > 500 ? "over" : "") + '">' + t + "/500</span>";
+  }
+  counts();
+  document.querySelectorAll("[data-copy-from]").forEach(function (b) {
+    bind(b, function () { return document.getElementById(b.dataset.copyFrom).value; });
+  });
+  document.querySelectorAll("[data-copy-text]").forEach(function (b) { bind(b, function () { return b.dataset.copyText; }); });
+  bind(document.getElementById("copy-all"), function () {
+    return document.querySelector("#titles input").value + "\n\n" + document.getElementById("desc").value;
+  });
+  document.getElementById("reset-desc").addEventListener("click", function () {
+    document.getElementById("desc").value = DEFAULTS.desc; store("desc", DEFAULTS.desc); counts(); say("Description reset");
+  });
+})();
+</script>
+</body>
+</html>

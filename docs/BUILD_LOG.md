@@ -21,6 +21,7 @@ Chronological record of everything done in this project, including dead ends. De
 | 14 | Sanity check (`SANITY_CHECK.md`): found raw noisy voice, constant-level music, hot SFX, garbled text in shot s4, arrow covering the `$0.00` proof. Fixed all; moved the real UI earlier; hedged "frontier-level" -> "frontier-like". | Final mix -15.3 LUFS, TP -1.3 dBFS. |
 | 15 | Added the "why go through all this hassle -> 10x less cost than a frontier model setup" banner at 0:21 (user's claim, flagged unverified). | |
 | 16 | Made the engine reusable: typed `remotion/src/data.ts`, no hard-coded filenames, `word_patches`, optional scenes; `template/` + `scripts/new_project.sh`; `docs/PLAYBOOK.md`. | A new Short = scaffold, record, edit `storyboard.json`. |
+| 17 | Added a thumbnail composition (`Thumb.tsx`, `npm run thumb` -> `assets/thumbnail.jpg`) and `index.html`, a publish kit with editable title options, description, hashtags, tags, pinned comment, copy buttons and the thumbnail. First thumbnail clipped "DEEPSEEK" at the right edge -> shrunk the type. Tested in Chrome: real mouse click shows "Copied" (synthetic `.click()` and `clipboard.readText()` are not valid tests: the latter hangs on a permission prompt). Port 8765 was already used by another local app ("Downloads -> Vault"), so I served on 8791 and confirmed the page title before testing. | The extension can't open `file://`; serve on a free port. Always check the page you are testing is yours. |
 
 ## Commands that reproduce the Short
 

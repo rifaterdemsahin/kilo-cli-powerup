@@ -10,8 +10,9 @@ mkdir -p "$DEST"/{scripts,docs,assets/{audio,images,transcript},build,remotion/{
 # engine (single copy lives here, so improvements flow into new projects)
 cp "$SRC"/scripts/{run.sh,transcribe.sh,generate.py,prep_remotion.py,assemble.py} "$DEST/scripts/"
 cp "$SRC"/remotion/{package.json,package-lock.json,tsconfig.json,remotion.config.ts} "$DEST/remotion/"
-cp "$SRC"/remotion/src/{index.ts,Root.tsx,Short.tsx,data.ts,JevSketch.tsx} "$DEST/remotion/src/"
+cp "$SRC"/remotion/src/{index.ts,Root.tsx,Short.tsx,data.ts,Thumb.tsx,JevSketch.tsx} "$DEST/remotion/src/"
 cp "$SRC/.gitignore" "$DEST/"
+cp "$SRC/template/index.template.html" "$DEST/index.html"
 cp "$SRC/docs/PLAYBOOK.md" "$DEST/docs/"
 # templates -> real files
 cp "$SRC/template/storyboard.template.json" "$DEST/storyboard.json"
@@ -20,7 +21,7 @@ for f in PROJECT_README:README SANITY_CHECK:SANITY_CHECK DECISIONS:DECISIONS; do
 done
 # stub so `tsc`/studio work before the first prep run
 cat > "$DEST/remotion/public/data.json" <<'JSON'
-{"duration":10,"voice":null,"music":null,"words":[],"shots":[],"callouts":[],"hook":null,"formula":null,"banner":null,"jev":null}
+{"duration":10,"voice":null,"music":null,"words":[],"shots":[],"callouts":[],"hook":null,"formula":null,"banner":null,"jev":null,"thumbnail":null}
 JSON
 chmod +x "$DEST"/scripts/*.sh "$DEST"/scripts/*.py
 (cd "$DEST" && git init -q && echo "initialised git repo")

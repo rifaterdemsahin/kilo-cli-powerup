@@ -45,9 +45,14 @@ for c in sb.get("callouts", []):
 subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(ROOT / sb["voiceover"]),
                 "-af", "highpass=f=90,afftdn=nf=-28,loudnorm=I=-14:TP=-3:LRA=7",
                 "-ar", "48000", str(PUB / "voice.wav")], check=True)
+thumb = None
+if sb.get("thumbnail"):
+    thumb = {k: v for k, v in sb["thumbnail"].items() if k != "shot"}
+    thumb["image"] = f"{sb['thumbnail']['shot']}.png" if (PUB / f"{sb['thumbnail']['shot']}.png").exists() else None
+
 voice = "voice.wav"
 data = {"duration": sb["duration"], "voice": voice, "music": put(B / "music.wav", "music.wav"),
-        "callouts": callouts, "hook": sb.get("hook"), "banner": sb.get("banner"), "formula": sb.get("formula"), "jev": sb.get("jev"), "words": words, "shots": shots}
+        "callouts": callouts, "hook": sb.get("hook"), "thumbnail": thumb, "banner": sb.get("banner"), "formula": sb.get("formula"), "jev": sb.get("jev"), "words": words, "shots": shots}
 (PUB / "data.json").write_text(json.dumps(data, indent=2))
 print(f"{len(words)} words, {sum(1 for s in shots if s['image'])}/{len(shots)} images, "
       f"music={'yes' if data['music'] else 'no'}")

@@ -1,0 +1,5 @@
+As you see here though, I'm using Kilo CLI and I'm going to enable LSP and indexing.
+That is the critical part in the game.
+And I also use JEV to be able to do the task that I need to do.
+These are the critical parts to make the Kilo CLI work in terms of frontier models by using
+deep seek.

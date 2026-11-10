@@ -1,0 +1,9 @@
+build/
+assets/audio/
+*.wav
+*.mp4
+*.m4a
+.env
+.env.*
+__pycache__/
+.DS_Store

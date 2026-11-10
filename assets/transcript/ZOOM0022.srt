@@ -1,0 +1,20 @@
+1
+00:00:00,000 --> 00:00:10,080
+As you see here though, I'm using Kilo CLI and I'm going to enable LSP and indexing.
+
+2
+00:00:10,080 --> 00:00:12,800
+That is the critical part in the game.
+
+3
+00:00:12,800 --> 00:00:17,960
+And I also use JEV to be able to do the task that I need to do.
+
+4
+00:00:17,960 --> 00:00:25,440
+These are the critical parts to make the Kilo CLI work in terms of frontier models by using
+
+5
+00:00:25,440 --> 00:00:26,160
+deep seek.
+

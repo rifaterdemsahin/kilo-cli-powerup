@@ -1,0 +1,49 @@
+{
+  "title": "Kilo CLI power-up",
+  "duration": 27,
+  "voiceover": "assets/audio/ZOOM0022.WAV",
+  "style": "dark terminal aesthetic, neon cyan and violet glow, clean vector-like 3D, vertical 9:16, no text, no logos",
+  "music": {
+    "prompt": "calm minimal lo-fi tech beat, soft synth pad, subtle pulse, instrumental, loopable",
+    "seconds": 27
+  },
+  "shots": [
+    {
+      "id": "s1",
+      "start": 0, "end": 5,
+      "image": "a glowing command line terminal in a dark room, cursor blinking, abstract code lines floating",
+      "caption_hint": "Using Kilo CLI",
+      "sfx": {"at": 0.2, "prompt": "soft keyboard typing burst, short"}
+    },
+    {
+      "id": "s2",
+      "start": 5, "end": 10,
+      "image": "a code repository visualised as a glowing network graph being indexed, nodes lighting up one by one",
+      "caption_hint": "Enable LSP + indexing",
+      "animate": true,
+      "sfx": {"at": 5.0, "prompt": "short digital whoosh transition"}
+    },
+    {
+      "id": "s3",
+      "start": 10, "end": 18,
+      "image": "a single glowing key piece being slotted into a complex machine, spotlight, dramatic",
+      "caption_hint": "The critical part",
+      "sfx": {"at": 10.0, "prompt": "UI confirm click then soft whoosh"}
+    },
+    {
+      "id": "s4",
+      "start": 18, "end": 23,
+      "image": "a developer workflow board with tasks flowing automatically across columns, neon lines",
+      "caption_hint": "Get the task done",
+      "sfx": {"at": 18.0, "prompt": "short digital whoosh transition"}
+    },
+    {
+      "id": "s5",
+      "start": 23, "end": 27,
+      "image": "a friendly glowing whale made of circuitry diving through a sea of data, frontier AI model concept",
+      "caption_hint": "Frontier models with DeepSeek",
+      "animate": true,
+      "sfx": {"at": 23.0, "prompt": "rising shimmer swoosh with soft impact"}
+    }
+  ]
+}

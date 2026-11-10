@@ -2,6 +2,30 @@
   "duration": 27,
   "voice": "voice.wav",
   "music": "music.wav",
+  "callout": {
+    "image": "callout.jpeg",
+    "start": 4.8,
+    "end": 10.0,
+    "x": 190,
+    "y": 260,
+    "width": 700,
+    "targets": [
+      {
+        "at": 7.2,
+        "label": "LSP",
+        "arrowY": 1210,
+        "boxY": 1168,
+        "boxH": 82
+      },
+      {
+        "at": 9.0,
+        "label": "Code Indexing",
+        "arrowY": 1115,
+        "boxY": 1074,
+        "boxH": 82
+      }
+    ]
+  },
   "words": [
     {
       "text": "As",

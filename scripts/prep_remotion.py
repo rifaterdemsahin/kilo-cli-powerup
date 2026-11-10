@@ -30,9 +30,13 @@ for s in sb["shots"]:
                   "sfx": put(B / f"{s['id']}_sfx.wav", f"{s['id']}_sfx.wav"),
                   "sfxAt": (s.get("sfx") or {}).get("at")})
 
+callout = None
+if sb.get("callout"):
+    c = dict(sb["callout"]); c["image"] = put(ROOT / c["image"], "callout.jpeg"); callout = c
+
 voice = put(ROOT / sb["voiceover"], "voice.wav")
 data = {"duration": sb["duration"], "voice": voice, "music": put(B / "music.wav", "music.wav"),
-        "words": words, "shots": shots}
+        "callout": callout, "words": words, "shots": shots}
 (PUB / "data.json").write_text(json.dumps(data, indent=2))
 print(f"{len(words)} words, {sum(1 for s in shots if s['image'])}/{len(shots)} images, "
       f"music={'yes' if data['music'] else 'no'}")

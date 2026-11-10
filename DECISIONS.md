@@ -39,6 +39,14 @@ Every non-obvious choice made while building this Short, and why.
 | Placeholder backgrounds when images are missing | Lets the composition render and be reviewed without a working fal.ai key. |
 | `remotion/public/data.json` is committed, media is not | The JSON is small and needed to typecheck. Media is big and reproducible. |
 
+## Screenshot callout
+| Decision | Why |
+|---|---|
+| Use the user's real Kilo CLI screenshot (`assets/images/kilo-lsp.jpeg`, latest image in Downloads) from 4.8-10.0 s | Real proof beats an AI image of a terminal. It shows LSP and Code Indexing both *disabled*, which matches "I'm going to enable LSP and indexing". |
+| Moving yellow arrow + pulsing box: points at LSP when "LSP" is spoken (7.2 s), glides to Code Indexing on "indexing" (9.0 s) | Syncs the visual to the narration. Targets and pixel positions live in `storyboard.json` -> `callout`, so they are editable without code changes. |
+| Screenshot is dimmed-backdrop, framed in cyan, shown 700 px wide | Keeps the text readable on a phone while the animated shot stays visible behind it. |
+| "JEV" is confirmed | The screenshot title reads "LSP and JEV status check", so the transcript is correct as written. |
+
 ## Secrets
 | Decision | Why |
 |---|---|
